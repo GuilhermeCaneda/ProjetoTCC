@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_degrade"
+    tools:context=".controle.EditarPerfilAluno">
+
+    <Button
+        android:id="@+id/buttonEditarPerfilAluno"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/bg_button"
+        android:text="Confirmar"
+        android:textColor="#C8C7C7"
+        app:layout_constraintBottom_toTopOf="@+id/progressBarEditarPerfilAluno"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/emailEditarPerfilAluno" />
+
+    <EditText
+        android:id="@+id/emailEditarPerfilAluno"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/bg_edittext"
+        android:ems="10"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        android:paddingLeft="8dp"
+        android:textColor="#C8C7C7"
+        android:textColorHint="#C8C7C7"
+        app:layout_constraintBottom_toTopOf="@+id/buttonEditarPerfilAluno"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nomeEditarPerfilAluno" />
+
+    <EditText
+        android:id="@+id/nomeEditarPerfilAluno"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/bg_edittext"
+        android:ems="10"
+        android:hint="Nome"
+        android:inputType="textPersonName"
+        android:paddingLeft="8dp"
+        android:textColor="#C8C7C7"
+        android:textColorHint="#C8C7C7"
+        app:layout_constraintBottom_toTopOf="@+id/emailEditarPerfilAluno"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/alterarFotoEditarPerfilAluno" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/fotoEditarPerfilAluno"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/perfil"
+        app:layout_constraintBottom_toTopOf="@+id/alterarFotoEditarPerfilAluno"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <TextView
+        android:id="@+id/alterarFotoEditarPerfilAluno"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:text="Alterar Foto"
+        android:textColor="#C8C7C7"
+        app:layout_constraintBottom_toTopOf="@+id/nomeEditarPerfilAluno"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fotoEditarPerfilAluno" />
+
+    <ProgressBar
+        android:id="@+id/progressBarEditarPerfilAluno"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonEditarPerfilAluno" />
+</androidx.constraintlayout.widget.ConstraintLayout>

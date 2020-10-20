@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bgcolor"
+    tools:context=".controle.CadastroProfessor">
+
+
+  <de.hdodenhof.circleimageview.CircleImageView
+      android:id="@+id/fotoCadastroProfessor"
+      android:layout_width="150dp"
+      android:layout_height="150dp"
+      android:layout_marginTop="52dp"
+      android:src="@drawable/perfil"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.498"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
+
+  <EditText
+      android:id="@+id/nomeCadastroProfessor"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="64dp"
+      android:layout_marginLeft="64dp"
+      android:layout_marginTop="56dp"
+      android:layout_marginEnd="64dp"
+      android:layout_marginRight="64dp"
+      android:background="@drawable/bg_edittext"
+      android:ems="10"
+      android:hint="Nome"
+      android:inputType="textPersonName"
+      android:paddingLeft="8dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.0"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/fotoCadastroProfessor" />
+
+  <EditText
+      android:id="@+id/emailCadastroProfessor"
+      android:layout_width="0dp"
+      android:layout_height="24dp"
+      android:layout_marginStart="64dp"
+      android:layout_marginLeft="64dp"
+      android:layout_marginTop="20dp"
+      android:layout_marginEnd="64dp"
+      android:layout_marginRight="64dp"
+      android:background="@drawable/bg_edittext"
+      android:ems="10"
+      android:hint="Email"
+      android:inputType="textEmailAddress"
+      android:paddingLeft="8dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/fetariaCadastroProfessor" />
+
+  <EditText
+      android:id="@+id/senhaCadastroProfessor"
+      android:layout_width="0dp"
+      android:layout_height="24dp"
+      android:layout_marginStart="64dp"
+      android:layout_marginLeft="64dp"
+      android:layout_marginTop="16dp"
+      android:layout_marginEnd="64dp"
+      android:layout_marginRight="64dp"
+      android:background="@drawable/bg_edittext"
+      android:paddingLeft="8dp"
+      android:ems="10"
+      android:hint="Senha"
+      android:inputType="textPassword"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/emailCadastroProfessor" />
+
+  <Spinner
+      android:id="@+id/fetariaCadastroProfessor"
+      android:layout_width="0dp"
+      android:layout_height="24dp"
+      android:layout_marginStart="64dp"
+      android:layout_marginLeft="64dp"
+      android:layout_marginTop="20dp"
+      android:layout_marginEnd="64dp"
+      android:layout_marginRight="64dp"
+      android:background="@drawable/bg_spinner"
+      android:paddingLeft="-3dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.0"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/nomeCadastroProfessor" />
+
+  <Button
+      android:id="@+id/buttonCadastroProfessor"
+      android:layout_width="0dp"
+      android:layout_height="40dp"
+      android:layout_marginStart="64dp"
+      android:layout_marginLeft="64dp"
+      android:layout_marginTop="16dp"
+      android:layout_marginEnd="64dp"
+      android:layout_marginRight="64dp"
+      android:background="@drawable/bg_button"
+      android:text="Cadastrar"
+      android:textColor="@android:color/white"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.0"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/senhaCadastroProfessor" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
