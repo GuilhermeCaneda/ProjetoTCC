@@ -155,7 +155,6 @@ public class EditarPerfilAluno extends AppCompatActivity {
 
     private void atualizarFotoAluno(Uri url){
         AlunoFirebase.atualizarFotoAluno(url);
-
         aluno.setCaminhoFoto(url.toString());
         aluno.atualizar();
     }

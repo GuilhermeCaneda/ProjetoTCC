@@ -9,7 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".controle.EditarPerfilProfessor"></activity>
+        <activity android:name=".telastestes.BuscarProfessor" ></activity>
+        <activity
+            android:name=".telastestes.PerfilProfessor"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".controle.EditarPerfilProfessor" />
         <activity android:name=".controle.EditarPerfilAluno" />
         <activity android:name=".Menu" />
         <activity

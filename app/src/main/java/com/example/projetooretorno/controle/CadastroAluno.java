@@ -1,6 +1,7 @@
 package com.example.projetooretorno.controle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -8,6 +9,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -24,6 +26,8 @@ import com.example.projetooretorno.Menu;
 import com.example.projetooretorno.R;
 import com.example.projetooretorno.modelo.Aluno;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -45,19 +49,20 @@ public class CadastroAluno extends AppCompatActivity {
     Button nCadastrar;
     EditText nNome, nEmail, nSenha;
     ProgressBar nProgressBar;
+    ImageView nFoto;
 
     Spinner nFEtaria;
     String[] menu = new String[] {"Faixa etária", "10 a 14 anos", "15 a 18 anos", "19 a 25 anos", "26 anos ou mais"};
     ArrayAdapter<String> ab;
 
-    ImageView nFoto;
-    public Uri uri;
-    private byte [] imagem = null;
-
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
     FirebaseStorage firebaseStorage;
+    StorageReference storageReference;
     FirebaseAuth firebaseAuth;
+
+    private static final int SELECAO_GALERIA = 200;
+    byte[] dadosImagem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +78,7 @@ public class CadastroAluno extends AppCompatActivity {
         });
 
         nNome = findViewById(R.id.nomeCadastroAluno);
+        nNome.requestFocus();
         nEmail = findViewById(R.id.emailCadastroAluno);
         nSenha = findViewById(R.id.senhaCadastroAluno);
         nFEtaria = findViewById(R.id.fetariaCadastroAluno);
@@ -80,7 +86,6 @@ public class CadastroAluno extends AppCompatActivity {
         nProgressBar.setVisibility(View.GONE);
         ab = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, menu);
         nFEtaria.setAdapter(ab);
-        nNome.requestFocus();
 
         nCadastrar = findViewById(R.id.buttonCadastroAluno);
         nCadastrar.setOnClickListener(new View.OnClickListener() {
@@ -134,7 +139,6 @@ public class CadastroAluno extends AppCompatActivity {
                             AlunoFirebase.atualizarNomeAluno(aluno.getNome());
                             databaseReference.child("Aluno").child(aluno.getId()).setValue(aluno);
                             SalvarImagem();
-
                             Toast.makeText(CadastroAluno.this, "Cadastrado com sucesso!", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(getApplicationContext(), Menu.class));
                         }
@@ -142,66 +146,83 @@ public class CadastroAluno extends AppCompatActivity {
                             nProgressBar.setVisibility(View.GONE);
                             String erroExcecao = "";
                             try{ throw task.getException(); }
-                            catch (FirebaseAuthWeakPasswordException e){ erroExcecao = "Digite uma senha mais forte!"; }
+                            catch(FirebaseAuthWeakPasswordException e){ erroExcecao = "Digite uma senha mais forte!"; }
                             catch(FirebaseAuthInvalidCredentialsException e){ erroExcecao = "Digite um e-mail válido."; }
-                            catch (FirebaseAuthUserCollisionException e){ erroExcecao = "Esta conta já foi cadastrada."; }
+                            catch(FirebaseAuthUserCollisionException e){ erroExcecao = "Esta conta já foi cadastrada."; }
                             catch(Exception e){ erroExcecao = "Erro ao cadastrar usuário." + e.getMessage(); e.printStackTrace(); }
                             Toast.makeText(CadastroAluno.this, "Erro: " + erroExcecao, Toast.LENGTH_SHORT).show();
                         }}});
     }
 
-    private void SelecionarFoto() {
-        Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(intent, 0);
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == RESULT_OK){
+            Bitmap imagem = null;
+            try{
+                switch (requestCode){
+                    case SELECAO_GALERIA:
+                        Uri localImagemSelecionada = data.getData();
+                        imagem = MediaStore.Images.Media.getBitmap(getContentResolver(), localImagemSelecionada);
+                        break;
+                }
+                if(imagem != null){
+                    nFoto.setImageBitmap(imagem);
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    imagem.compress(Bitmap.CompressFormat.PNG, 70, baos);
+                    dadosImagem = baos.toByteArray();
+                }
+            }catch (Exception e){ e.printStackTrace(); }
+        }
     }
 
     private void SalvarImagem() {
-        String path = "FPerfilAluno/" + aluno.getId() + ".png";
-        StorageReference firebaseStorageReference = firebaseStorage.getReference(path);
-        UploadTask uploadTask = firebaseStorageReference.putBytes(imagem);
-        uploadTask.addOnCompleteListener(CadastroAluno.this, new OnCompleteListener<UploadTask.TaskSnapshot>() {
+        final StorageReference imagemRef = storageReference.child("FPerfilAluno/" + firebaseAuth.getUid() + ".png");
+
+        if(dadosImagem!=null){
+        UploadTask uploadTask = imagemRef.putBytes(dadosImagem);
+        uploadTask.addOnFailureListener(new OnFailureListener() {
             @Override
-            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                Log.i("MA", "Deu bom" + uri);
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(CadastroAluno.this, "Erro ao fazer upload da imagem.", Toast.LENGTH_SHORT).show();
+                Log.i("storage", "erro ao fazer upload");
             }
-        });
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                imagemRef.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Uri> task) {
+                        Uri url = task.getResult();
+                        atualizarFotoAluno(url);
+                        Toast.makeText(CadastroAluno.this, "Sucesso ao atualizar a foto!", Toast.LENGTH_SHORT).show();
+                        Log.i("storage", "sucesso ao fazer upload");
+                    }
+                });
+            }
+        });}
+    }
+
+    private void SelecionarFoto() {
+        Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        if(i.resolveActivity(getPackageManager()) != null){
+            startActivityForResult(i,  SELECAO_GALERIA);
+        }
+    }
+
+    private void atualizarFotoAluno(Uri url){
+        AlunoFirebase.atualizarFotoAluno(url);
+        aluno.setCaminhoFoto(url.toString());
+        aluno.atualizar();
     }
 
     @Override
     protected void onStart(){
         super.onStart();
         firebaseAuth = Conexao.getFirebaseAuth();
-        firebaseStorage = Conexao.getFirebaseStorage();
         firebaseDatabase = Conexao.getFirebaseDatabase();
         databaseReference = firebaseDatabase.getReference();
-        /*
-        FirebaseUser currentUser = auth.getCurrentUser();
-        if(currentUser!=null){
-            LogarUsuario();
-        }
-        */
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode==0){
-            uri = data.getData();
-            Bitmap bitmap = null;
-            try {
-                bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(uri));
-                nFoto.setImageURI(uri);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-            byte[] img = getBitmapAsByteArray(bitmap);
-            imagem = img;
-        }
-    }
-
-    public static byte[] getBitmapAsByteArray(Bitmap bitmap){
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 0 , outputStream);
-        return outputStream.toByteArray();
+        firebaseStorage = Conexao.getFirebaseStorage();
+        storageReference = firebaseStorage.getReference();
     }
 }

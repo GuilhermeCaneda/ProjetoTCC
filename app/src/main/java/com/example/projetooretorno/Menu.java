@@ -9,15 +9,25 @@ import android.widget.Button;
 
 import com.example.projetooretorno.controle.EditarPerfilAluno;
 import com.example.projetooretorno.helper.Conexao;
+import com.example.projetooretorno.telastestes.BuscarProfessor;
+import com.example.projetooretorno.telastestes.PerfilProfessor;
 
 public class Menu extends AppCompatActivity {
 
-    Button nSair, nEditarPerfil;
+    Button nSair, nEditarPerfil, nTeste;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
+
+        nTeste = findViewById(R.id.teste);
+        nTeste.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), BuscarProfessor.class));
+            }
+        });
 
         nEditarPerfil = findViewById(R.id.buttonEditarPerfilAluno);
         nEditarPerfil.setOnClickListener(new View.OnClickListener() {

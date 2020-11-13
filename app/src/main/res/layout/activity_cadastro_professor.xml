@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bgcolor"
+    android:background="@drawable/bg_degrade"
     tools:context=".controle.CadastroProfessor">
 
 
@@ -31,6 +31,8 @@
       android:background="@drawable/bg_edittext"
       android:ems="10"
       android:hint="Nome"
+      android:textColor="#C8C7C7"
+      android:textColorHint="#C8C7C7"
       android:inputType="textPersonName"
       android:paddingLeft="8dp"
       app:layout_constraintEnd_toEndOf="parent"
@@ -44,7 +46,7 @@
       android:layout_height="24dp"
       android:layout_marginStart="64dp"
       android:layout_marginLeft="64dp"
-      android:layout_marginTop="20dp"
+      android:layout_marginTop="16dp"
       android:layout_marginEnd="64dp"
       android:layout_marginRight="64dp"
       android:background="@drawable/bg_edittext"
@@ -52,9 +54,32 @@
       android:hint="Email"
       android:inputType="textEmailAddress"
       android:paddingLeft="8dp"
+      android:textColor="#C8C7C7"
+      android:textColorHint="#C8C7C7"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.0"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/nomeCadastroProfessor" />
+
+  <EditText
+      android:id="@+id/enderecoCadastroProfessor"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="64dp"
+      android:layout_marginLeft="64dp"
+      android:layout_marginTop="16dp"
+      android:layout_marginEnd="64dp"
+      android:layout_marginRight="64dp"
+      android:background="@drawable/bg_edittext"
+      android:ems="10"
+      android:hint="Endereço"
+      android:inputType="textPersonName"
+      android:paddingLeft="8dp"
+      android:textColor="#C8C7C7"
+      android:textColorHint="#C8C7C7"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/fetariaCadastroProfessor" />
+      app:layout_constraintTop_toBottomOf="@+id/emailCadastroProfessor"></EditText>
 
   <EditText
       android:id="@+id/senhaCadastroProfessor"
@@ -66,29 +91,16 @@
       android:layout_marginEnd="64dp"
       android:layout_marginRight="64dp"
       android:background="@drawable/bg_edittext"
-      android:paddingLeft="8dp"
       android:ems="10"
       android:hint="Senha"
       android:inputType="textPassword"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/emailCadastroProfessor" />
-
-  <Spinner
-      android:id="@+id/fetariaCadastroProfessor"
-      android:layout_width="0dp"
-      android:layout_height="24dp"
-      android:layout_marginStart="64dp"
-      android:layout_marginLeft="64dp"
-      android:layout_marginTop="20dp"
-      android:layout_marginEnd="64dp"
-      android:layout_marginRight="64dp"
-      android:background="@drawable/bg_spinner"
-      android:paddingLeft="-3dp"
+      android:paddingLeft="8dp"
+      android:textColor="#C8C7C7"
+      android:textColorHint="#C8C7C7"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintHorizontal_bias="0.0"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/nomeCadastroProfessor" />
+      app:layout_constraintTop_toBottomOf="@+id/enderecoCadastroProfessor" />
 
   <Button
       android:id="@+id/buttonCadastroProfessor"
@@ -101,10 +113,24 @@
       android:layout_marginRight="64dp"
       android:background="@drawable/bg_button"
       android:text="Cadastrar"
-      android:textColor="@android:color/white"
+      android:textColor="#C8C7C7"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintHorizontal_bias="0.0"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/senhaCadastroProfessor" />
+
+  <ProgressBar
+      android:id="@+id/progressBarCadastroProfessor"
+      style="?android:attr/progressBarStyle"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="24dp"
+      android:layout_marginBottom="192dp"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.498"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/buttonCadastroProfessor"
+      app:layout_constraintVertical_bias="0.244" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
