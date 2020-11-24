@@ -95,11 +95,11 @@ public class Login extends AppCompatActivity {
                     pesquisa.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            idPesquisado = snapshot.child("id").getValue().toString();
-                            if (idPesquisado == "") {
+                            //idPesquisado = snapshot.child("id").getValue();
+                            if (snapshot.child("id").getValue() == null) {
                                 pesquisa = databaseReference.child("Aluno").child(firebaseAuth.getUid());
-                                idPesquisado = snapshot.child("id").getValue().toString();
-                                if (idPesquisado != "") {
+                                //idPesquisado = snapshot.child("id").getValue().toString();
+                                if (snapshot.child("id").getValue()  == null) {
                                     Toast.makeText(Login.this, "Aluno", Toast.LENGTH_SHORT).show();
                                 }
                             } else {
