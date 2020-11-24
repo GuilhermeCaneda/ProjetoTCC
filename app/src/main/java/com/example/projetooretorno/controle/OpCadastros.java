@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.example.projetooretorno.Menu;
 import com.example.projetooretorno.R;
 
 public class OpCadastros extends AppCompatActivity {
@@ -19,14 +18,14 @@ public class OpCadastros extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_op_cadastros);
 
-        aluno = findViewById(R.id.OpCadastroAluno);
+        aluno = findViewById(R.id.opCadastroAluno);
         aluno.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), CadastroAluno.class));
             }
         });
-        professor = findViewById(R.id.OpCadastroProfessor);
+        professor = findViewById(R.id.opCadastroProfessor);
         professor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

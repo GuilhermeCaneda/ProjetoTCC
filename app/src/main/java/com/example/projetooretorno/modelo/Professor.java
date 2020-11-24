@@ -6,10 +6,11 @@ import com.example.projetooretorno.helper.Conexao;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Professor {
+public class Professor implements Serializable {
 
     private String id;
     private String nome;
@@ -35,7 +36,8 @@ public class Professor {
     public Professor() {
     }
 
-    public Professor(String nome, String email, String endereco, String caminhoFoto) {
+    public Professor(String id, String nome, String email, String endereco, String caminhoFoto) {
+        this.id = id;
         this.nome = nome;
         this.email = email;
         this.endereco = endereco;

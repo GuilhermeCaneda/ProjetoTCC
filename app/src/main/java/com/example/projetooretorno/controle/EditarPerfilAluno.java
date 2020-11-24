@@ -177,6 +177,6 @@ public class EditarPerfilAluno extends AppCompatActivity {
         nProgressBar.setVisibility(View.GONE);
         nFoto = findViewById(R.id.fotoEditarPerfilAluno);
         nAlterarFoto = findViewById(R.id.alterarFotoEditarPerfilAluno);
-        nConfirmar = findViewById(R.id.buttonEditarPerfilAluno);
+        nConfirmar = findViewById(R.id.editarPerfilMenuAluno);
     }
 }

@@ -8,7 +8,7 @@
     tools:context=".controle.EditarPerfilAluno">
 
     <Button
-        android:id="@+id/buttonEditarPerfilAluno"
+        android:id="@+id/editarPerfilMenuAluno"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -32,7 +32,7 @@
         android:paddingLeft="8dp"
         android:textColor="#C8C7C7"
         android:textColorHint="#C8C7C7"
-        app:layout_constraintBottom_toTopOf="@+id/buttonEditarPerfilAluno"
+        app:layout_constraintBottom_toTopOf="@+id/editarPerfilMenuAluno"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nomeEditarPerfilAluno" />
@@ -59,6 +59,8 @@
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:src="@drawable/perfil"
+        app:civ_border_color="#688FDD"
+        app:civ_border_width="3dp"
         app:layout_constraintBottom_toTopOf="@+id/alterarFotoEditarPerfilAluno"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -85,5 +87,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonEditarPerfilAluno" />
+        app:layout_constraintTop_toBottomOf="@+id/editarPerfilMenuAluno" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -9,27 +9,26 @@ import android.widget.Button;
 
 import com.example.projetooretorno.controle.EditarPerfilAluno;
 import com.example.projetooretorno.helper.Conexao;
-import com.example.projetooretorno.telastestes.BuscarProfessor;
-import com.example.projetooretorno.telastestes.PerfilProfessor;
+import com.example.projetooretorno.controle.BuscarProfessor;
 
-public class Menu extends AppCompatActivity {
+public class MenuAluno extends AppCompatActivity {
 
-    Button nSair, nEditarPerfil, nTeste;
+    Button nSair, nEditarPerfil, nProcurarProfessor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
-        nTeste = findViewById(R.id.teste);
-        nTeste.setOnClickListener(new View.OnClickListener() {
+        nProcurarProfessor = findViewById(R.id.procurarProfessoresMenuAluno);
+        nProcurarProfessor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), BuscarProfessor.class));
             }
         });
 
-        nEditarPerfil = findViewById(R.id.buttonEditarPerfilAluno);
+        nEditarPerfil = findViewById(R.id.editarPerfilMenuAluno);
         nEditarPerfil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -37,7 +36,7 @@ public class Menu extends AppCompatActivity {
             }
         });
 
-        nSair = findViewById(R.id.sair);
+        nSair = findViewById(R.id.sairMenuAluno);
         nSair.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

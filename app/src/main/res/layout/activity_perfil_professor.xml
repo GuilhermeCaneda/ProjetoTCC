@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_degrade"
-    tools:context=".telastestes.PerfilProfessor">
+    tools:context=".controle.PerfilProfessor">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline5"
@@ -47,6 +47,8 @@
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:src="@drawable/perfil"
+        app:civ_border_color="#688FDD"
+        app:civ_border_width="3dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline3"
         app:layout_constraintEnd_toStartOf="@+id/guideline5"
         app:layout_constraintStart_toStartOf="@+id/guideline4"
@@ -169,10 +171,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="108dp"
+        android:background="@drawable/bg_button"
         android:text="Solicitar Matrícula"
         android:textColor="#C8C7C7"
         android:textColorHint="#C8C7C7"
-        android:background="@drawable/bg_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -22,7 +21,7 @@ import android.widget.Toast;
 
 import com.example.projetooretorno.helper.AlunoFirebase;
 import com.example.projetooretorno.helper.Conexao;
-import com.example.projetooretorno.Menu;
+import com.example.projetooretorno.MenuAluno;
 import com.example.projetooretorno.R;
 import com.example.projetooretorno.modelo.Aluno;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -41,7 +40,6 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
 
 public class CadastroAluno extends AppCompatActivity {
 
@@ -140,7 +138,7 @@ public class CadastroAluno extends AppCompatActivity {
                             databaseReference.child("Aluno").child(aluno.getId()).setValue(aluno);
                             SalvarImagem();
                             Toast.makeText(CadastroAluno.this, "Cadastrado com sucesso!", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(getApplicationContext(), Menu.class));
+                            startActivity(new Intent(getApplicationContext(), MenuAluno.class));
                         }
                         else{
                             nProgressBar.setVisibility(View.GONE);

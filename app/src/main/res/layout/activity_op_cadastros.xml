@@ -4,25 +4,32 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bgcolor"
+    android:background="@drawable/bg_degrade"
     tools:context=".controle.OpCadastros">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/OpCadastroAluno"
-        android:layout_width="227dp"
-        android:layout_height="305dp"
-        android:layout_marginTop="56dp"
+        android:id="@+id/opCadastroAluno"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
         android:src="@drawable/perfil"
+        app:civ_border_color="#688FDD"
+        app:civ_border_width="3dp"
+        app:layout_constraintBottom_toTopOf="@+id/opCadastroProfessor"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/OpCadastroProfessor"
-        android:layout_width="227dp"
-        android:layout_height="305dp"
+        android:id="@+id/opCadastroProfessor"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
         android:src="@drawable/perfil"
+        app:civ_border_color="#688FDD"
+        app:civ_border_width="3dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/OpCadastroAluno" />
+        app:layout_constraintTop_toBottomOf="@+id/opCadastroAluno" />
 </androidx.constraintlayout.widget.ConstraintLayout>

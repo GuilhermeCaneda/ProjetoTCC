@@ -11,20 +11,15 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.example.projetooretorno.Menu;
 import com.example.projetooretorno.R;
-import com.example.projetooretorno.helper.AlunoFirebase;
 import com.example.projetooretorno.helper.Conexao;
 import com.example.projetooretorno.helper.ProfessorFirebase;
-import com.example.projetooretorno.modelo.Aluno;
 import com.example.projetooretorno.modelo.Professor;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -47,7 +42,7 @@ public class CadastroProfessor extends AppCompatActivity {
 
     Professor professor;
     Button nCadastrar;
-    EditText nNome, nEmail, nSenha, nEndereco;
+    EditText nNome, nEmail, nSenha;
     ProgressBar nProgressBar;
     ImageView nFoto;
 
@@ -76,7 +71,6 @@ public class CadastroProfessor extends AppCompatActivity {
         nNome = findViewById(R.id.nomeCadastroProfessor);
         nNome.requestFocus();
         nEmail = findViewById(R.id.emailCadastroProfessor);
-        nEndereco = findViewById(R.id.enderecoCadastroProfessor);
         nSenha = findViewById(R.id.senhaCadastroProfessor);
         nProgressBar = findViewById(R.id.progressBarCadastroProfessor);
         nProgressBar.setVisibility(View.GONE);
@@ -87,17 +81,12 @@ public class CadastroProfessor extends AppCompatActivity {
             public void onClick(View v) {
                 String nome = nNome.getText().toString().trim();
                 String email = nEmail.getText().toString().trim();
-                String endereco = nEndereco.getText().toString().trim();
                 String senha = nSenha.getText().toString().trim();
                 if(!nome.isEmpty()){
                     if(!email.isEmpty()){
                         if(!senha.isEmpty()){
-                            if(!endereco.isEmpty()){
-                                nProgressBar.setVisibility(View.VISIBLE);
-                                CadastroProfessor(email, senha);
-                            }else{
-                                Toast.makeText(getBaseContext(), "Preencha todos os campos.", Toast.LENGTH_SHORT).show();
-                            }
+                            nProgressBar.setVisibility(View.VISIBLE);
+                            CadastrarProfessor(email, senha);
                         }else{
                             Toast.makeText(getBaseContext(), "Preencha todos os campos.", Toast.LENGTH_SHORT).show();
                         }
@@ -112,7 +101,7 @@ public class CadastroProfessor extends AppCompatActivity {
 
     }
 
-    private void CadastroProfessor(String email, String senha){
+    private void CadastrarProfessor(String email, String senha){
         professor = new Professor();
         firebaseAuth.createUserWithEmailAndPassword(email, senha)
                 .addOnCompleteListener(CadastroProfessor.this, new OnCompleteListener<AuthResult>() {
@@ -122,12 +111,13 @@ public class CadastroProfessor extends AppCompatActivity {
                             professor.setId(firebaseAuth.getUid());
                             professor.setNome(nNome.getText().toString());
                             professor.setEmail(nEmail.getText().toString());
-                            professor.setEndereco(nEndereco.getText().toString());
-
                             ProfessorFirebase.atualizarNomeProfessor(professor.getNome());
+
                             databaseReference.child("Professor").child(professor.getId()).setValue(professor);
-                            SalvarImagem();
                             Toast.makeText(CadastroProfessor.this, "Cadastrado com sucesso!", Toast.LENGTH_SHORT).show();
+
+
+                            SalvarImagem();
                             nProgressBar.setVisibility(View.GONE);
                             //startActivity(new Intent(getApplicationContext(), Menu.class));
                         }
@@ -167,7 +157,6 @@ public class CadastroProfessor extends AppCompatActivity {
 
     private void SalvarImagem() {
         final StorageReference imagemRef = storageReference.child("FPerfilProfessor/" + firebaseAuth.getUid() + ".png");
-
         if(dadosImagem!=null){
             UploadTask uploadTask = imagemRef.putBytes(dadosImagem);
             uploadTask.addOnFailureListener(new OnFailureListener() {
@@ -208,9 +197,11 @@ public class CadastroProfessor extends AppCompatActivity {
     @Override
     protected void onStart(){
         super.onStart();
-        firebaseAuth = Conexao.getFirebaseAuth();
+
         firebaseDatabase = Conexao.getFirebaseDatabase();
         databaseReference = firebaseDatabase.getReference();
+
+        firebaseAuth = Conexao.getFirebaseAuth();
         firebaseStorage = Conexao.getFirebaseStorage();
         storageReference = firebaseStorage.getReference();
     }

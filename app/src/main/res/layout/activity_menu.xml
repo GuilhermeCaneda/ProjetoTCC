@@ -4,39 +4,70 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Menu">
+    android:background="@drawable/bg_degrade"
+    tools:context=".MenuAluno">
 
     <Button
-        android:id="@+id/teste"
-        android:layout_width="wrap_content"
+        android:id="@+id/editarPerfilMenuAluno"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="152dp"
-        android:text="Teste"
+        android:layout_marginTop="108dp"
+        android:background="@drawable/bg_button"
+        android:text="Editar Perfil"
+        android:textColor="#C8C7C7"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/buttonEditarPerfilAluno"
-        android:layout_width="wrap_content"
+        android:id="@+id/procurarProfessoresMenuAluno"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="104dp"
-        android:text="Editar Perfil"
+        android:layout_marginTop="8dp"
+        android:text="Procurar Professores"
+        android:background="@drawable/bg_button"
+        android:textColor="#C8C7C7"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/teste" />
+        app:layout_constraintTop_toBottomOf="@+id/editarPerfilMenuAluno" />
 
     <Button
-        android:id="@+id/sair"
-        android:layout_width="wrap_content"
+        android:id="@+id/sairMenuAluno"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/bg_button"
         android:text="Sair"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textColor="#C8C7C7"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonEditarPerfilAluno"
-        app:layout_constraintVertical_bias="0.277" />
+        app:layout_constraintTop_toBottomOf="@+id/notificacoesMenuAluno" />
+
+    <Button
+        android:id="@+id/notificacoesMenuAluno"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Notificações"
+        android:background="@drawable/bg_button"
+        android:textColor="#C8C7C7"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/meusProfessoresMenuAluno" />
+
+    <Button
+        android:id="@+id/meusProfessoresMenuAluno"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Meus Professores"
+        android:background="@drawable/bg_button"
+        android:textColor="#C8C7C7"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/procurarProfessoresMenuAluno" />
 </androidx.constraintlayout.widget.ConstraintLayout>
