@@ -9,21 +9,38 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".controle.MeusAlunosProfessor"></activity>
+        <activity android:name=".telastestes.NotificacaoAluno" />
+        <activity android:name=".controle.MeusProfessoresAluno" />
+        <activity android:name=".controle.TelaProvisoria" />
+        <activity android:name=".controle.NotificacaoProfessor" />
         <activity android:name=".MenuProfessor" />
         <activity android:name=".telastestes.NotificacaoProfessor" />
         <activity android:name=".controle.BuscarProfessor" />
-        <activity android:name=".controle.PerfilProfessor" android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".controle.PerfilProfessor"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".controle.EditarPerfilProfessor" />
         <activity android:name=".controle.EditarPerfilAluno" />
         <activity android:name=".MenuAluno" />
-        <activity android:name=".controle.OpCadastros" android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".controle.CadastroProfessor" android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".controle.CadastroAluno" android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Login" android:theme="@style/AppTheme.NoActionBar">
+        <activity
+            android:name=".controle.OpCadastros"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".controle.CadastroProfessor"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".controle.CadastroAluno"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Login"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
     </application>
+
 </manifest>

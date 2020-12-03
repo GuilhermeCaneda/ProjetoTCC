@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.projetooretorno.MenuProfessor;
 import com.example.projetooretorno.R;
 import com.example.projetooretorno.helper.Conexao;
 import com.example.projetooretorno.helper.ProfessorFirebase;
@@ -110,6 +111,13 @@ public class CadastroProfessor extends AppCompatActivity {
                         if(task.isSuccessful()){
                             professor.setId(firebaseAuth.getUid());
                             professor.setNome(nNome.getText().toString());
+
+                            professor.setInstrumentos("");
+                            professor.setBiografia("");
+                            professor.setValor("");
+                            professor.setDisponibilidade("");
+                            professor.setEndereco("");
+
                             professor.setEmail(nEmail.getText().toString());
                             ProfessorFirebase.atualizarNomeProfessor(professor.getNome());
 
@@ -119,7 +127,7 @@ public class CadastroProfessor extends AppCompatActivity {
 
                             SalvarImagem();
                             nProgressBar.setVisibility(View.GONE);
-                            //startActivity(new Intent(getApplicationContext(), Menu.class));
+                            startActivity(new Intent(getApplicationContext(), MenuProfessor.class));
                         }
                         else{
                             nProgressBar.setVisibility(View.GONE);

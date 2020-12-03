@@ -95,15 +95,15 @@ public class Login extends AppCompatActivity {
                     pesquisa.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            //idPesquisado = snapshot.child("id").getValue();
                             if (snapshot.child("id").getValue() == null) {
                                 pesquisa = databaseReference.child("Aluno").child(firebaseAuth.getUid());
-                                //idPesquisado = snapshot.child("id").getValue().toString();
                                 if (snapshot.child("id").getValue()  == null) {
                                     Toast.makeText(Login.this, "Aluno", Toast.LENGTH_SHORT).show();
+                                    startActivity(new Intent(getApplicationContext(), MenuAluno.class));
                                 }
                             } else {
                                 Toast.makeText(Login.this, "Professor", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(getApplicationContext(), MenuProfessor.class));
                             }
                         }
 
@@ -112,8 +112,6 @@ public class Login extends AppCompatActivity {
 
                         }
                     });
-                    //startActivity(new Intent(getApplicationContext(), MenuAluno.class));
-                    //startActivity(new Intent(getApplicationContext(), MenuProfessor.class));
                 }
                 else{
                     Toast.makeText(Login.this, "Usuário ou senha incorretos.", Toast.LENGTH_SHORT).show();
@@ -126,10 +124,34 @@ public class Login extends AppCompatActivity {
     @Override
     protected void onStart(){
         super.onStart();
+        firebaseDatabase = Conexao.getFirebaseDatabase();
+        databaseReference = firebaseDatabase.getReference();
+        
         firebaseAuth = Conexao.getFirebaseAuth();
         if(firebaseAuth.getCurrentUser() != null){
-            startActivity(new Intent(getApplicationContext(), MenuAluno.class));
-            finish();
+            pesquisa = databaseReference.child("Professor").child(firebaseAuth.getUid());
+            pesquisa.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.child("id").getValue() == null) {
+                        pesquisa = databaseReference.child("Aluno").child(firebaseAuth.getUid());
+                        if (snapshot.child("id").getValue()  == null) {
+                            Toast.makeText(Login.this, "Aluno", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(getApplicationContext(), MenuAluno.class));
+                            finish();
+                        }
+                    } else {
+                        Toast.makeText(Login.this, "Professor", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(getApplicationContext(), MenuProfessor.class));
+                        finish();
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
         }
     }
 }

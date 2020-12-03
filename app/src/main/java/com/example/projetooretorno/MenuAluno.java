@@ -8,12 +8,14 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.projetooretorno.controle.EditarPerfilAluno;
+import com.example.projetooretorno.controle.MeusProfessoresAluno;
 import com.example.projetooretorno.helper.Conexao;
 import com.example.projetooretorno.controle.BuscarProfessor;
+import com.example.projetooretorno.telastestes.NotificacaoAluno;
 
 public class MenuAluno extends AppCompatActivity {
 
-    Button nSair, nEditarPerfil, nProcurarProfessor;
+    Button nSair, nEditarPerfil, nProcurarProfessor, nNotificacoes, nMeusProfessores;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +35,22 @@ public class MenuAluno extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), EditarPerfilAluno.class));
+            }
+        });
+
+        nMeusProfessores = findViewById(R.id.meusProfessoresMenuAluno);
+        nMeusProfessores.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), MeusProfessoresAluno.class));
+            }
+        });
+
+        nNotificacoes = findViewById(R.id.notificacoesMenuAluno);
+        nNotificacoes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), NotificacaoAluno.class));
             }
         });
 

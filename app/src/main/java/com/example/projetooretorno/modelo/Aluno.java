@@ -18,6 +18,7 @@ public class Aluno {
     private String email;
     private String caminhoFoto;
 
+
     @Override
     public String toString() {
         return "Aluno{" +

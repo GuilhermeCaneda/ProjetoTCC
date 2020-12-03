@@ -18,30 +18,71 @@ public class Professor implements Serializable {
     private String caminhoFoto;
     private String estado;
     private String cidade;
-    private String endereco;
 
-    @Override
-    public String toString() {
-        return "Professor{" +
-                "id='" + id + '\'' +
-                ", nome='" + nome + '\'' +
-                ", email='" + email + '\'' +
-                ", caminhoFoto='" + caminhoFoto + '\'' +
-                ", estado='" + estado + '\'' +
-                ", cidade='" + cidade + '\'' +
-                ", endereco='" + endereco + '\'' +
-                '}';
+    private String endereco;
+    private String biografia;
+    private String instrumentos;
+    private String disponibilidade;
+    private String valor;
+
+    public Professor(String id, String nome, String email, String caminhoFoto, String estado, String cidade, String endereco, String biografia, String instrumentos, String disponibilidade, String valor) {
+        this.id = id;
+        this.nome = nome;
+        this.email = email;
+        this.caminhoFoto = caminhoFoto;
+        this.estado = estado;
+        this.cidade = cidade;
+        this.endereco = endereco;
+        this.biografia = biografia;
+        this.instrumentos = instrumentos;
+        this.disponibilidade = disponibilidade;
+        this.valor = valor;
     }
 
     public Professor() {
     }
 
-    public Professor(String id, String nome, String email, String endereco, String caminhoFoto) {
+    public Professor(String id, String nome, String email, String caminhoFoto) {
         this.id = id;
         this.nome = nome;
         this.email = email;
         this.endereco = endereco;
         this.caminhoFoto = caminhoFoto;
+    }
+
+
+
+
+    public String getBiografia() {
+        return biografia;
+    }
+
+    public void setBiografia(String biografia) {
+        this.biografia = biografia;
+    }
+
+    public String getInstrumentos() {
+        return instrumentos;
+    }
+
+    public void setInstrumentos(String instrumentos) {
+        this.instrumentos = instrumentos;
+    }
+
+    public String getDisponibilidade() {
+        return disponibilidade;
+    }
+
+    public void setDisponibilidade(String disponibilidade) {
+        this.disponibilidade = disponibilidade;
+    }
+
+    public String getValor() {
+        return valor;
+    }
+
+    public void setValor(String valor) {
+        this.valor = valor;
     }
 
     public void atualizar(){
@@ -59,6 +100,13 @@ public class Professor implements Serializable {
         professorMap.put("nome", getNome());
         professorMap.put("id", getId());
         professorMap.put("caminhoFoto", getCaminhoFoto());
+
+        professorMap.put("instrumentos", getInstrumentos());
+        professorMap.put("valor", getValor());
+        professorMap.put("biografia", getBiografia());
+        professorMap.put("endereco", getEndereco());
+        professorMap.put("disponibilidade", getDisponibilidade());
+
 
         return professorMap;
     }

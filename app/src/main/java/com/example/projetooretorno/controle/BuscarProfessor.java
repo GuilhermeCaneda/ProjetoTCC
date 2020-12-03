@@ -49,9 +49,6 @@ public class BuscarProfessor extends AppCompatActivity {
             @Override
             public void onItemClick(View view, int position) {
                 Professor p = professores.get(position);
-                //Toast.makeText(getApplicationContext(), "Item pressionado: " + p.getId(), Toast.LENGTH_SHORT).show();
-                //startActivity(new Intent(getBaseContext(), PerfilProfessor.class));
-
                 Intent i = new Intent(getBaseContext(), PerfilProfessor.class);
                 i.putExtra("professorSelecionado", p);
                 startActivity(i);
@@ -60,7 +57,6 @@ public class BuscarProfessor extends AppCompatActivity {
             @Override
             public void onLongItemClick(View view, int position) {
                 Professor p = professores.get(position);
-                //Toast.makeText(getApplicationContext(), "Item pressionado: " + p.getId(), Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(getBaseContext(), PerfilProfessor.class));
             }
 
@@ -81,10 +77,14 @@ public class BuscarProfessor extends AppCompatActivity {
                     String idProfessor = dataSnapshot.child("id").getValue().toString();
                     String nomeProfessor = dataSnapshot.child("nome").getValue().toString();
                     String emailProfessor = dataSnapshot.child("email").getValue().toString();
-                    String enderecoProfessor = dataSnapshot.child("endereco").getValue().toString();
-                    String caminhoFotoProfessor = dataSnapshot.child("caminhoFoto").getValue().toString();
-                    Log.d("funciona", nomeProfessor + " " + emailProfessor + " " + enderecoProfessor + " " + caminhoFotoProfessor);
-                    professores.add(new Professor(idProfessor, nomeProfessor, emailProfessor, enderecoProfessor, caminhoFotoProfessor));
+                    //String enderecoProfessor = dataSnapshot.child("endereco").getValue().toString();
+                    String caminhoFotoProfessor = "";
+                    if(dataSnapshot.child("caminhoFoto").getValue()!=null){
+                        caminhoFotoProfessor = dataSnapshot.child("caminhoFoto").getValue().toString();
+                    }
+
+                    Log.d("funciona", nomeProfessor + " " + emailProfessor + " "  + " " + caminhoFotoProfessor);
+                    professores.add(new Professor(idProfessor, nomeProfessor, emailProfessor, caminhoFotoProfessor));
                     Log.d("funciona2", professores.toString());
                 }
                 ProfessorAdapter adapter = new ProfessorAdapter(professores, getApplicationContext());
