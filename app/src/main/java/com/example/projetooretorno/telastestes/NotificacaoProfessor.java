@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.projetooretorno.R;
 import com.example.projetooretorno.adapter.NotificacaoProfessorAdapter;
@@ -43,7 +45,8 @@ public class NotificacaoProfessor extends AppCompatActivity {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-
+        user = ProfessorFirebase.getProfessorAtual();
+        Toast.makeText(this, user.getUid(), Toast.LENGTH_SHORT).show();
         listarNotificacoes();
     }
 
@@ -60,9 +63,10 @@ public class NotificacaoProfessor extends AppCompatActivity {
                     String idAluno = dataSnapshot.child("idAluno").getValue().toString();
                     Log.d("fff", idNotificacao + " " + idProfessor + " " + idAluno);
 
-                    notificacoes.add(new Notificacao(idNotificacao, idProfessor, idAluno));
-
-                    Log.d("fff2", notificacoes.toString());
+                    if(idProfessor.equals(user.getUid())) {
+                        notificacoes.add(new Notificacao(idNotificacao, idProfessor, idAluno));
+                        Log.d("fff2", notificacoes.toString());
+                    }
                 }
                 NotificacaoProfessorAdapter adapter = new NotificacaoProfessorAdapter(notificacoes, getApplicationContext());
                 recyclerView.setAdapter(adapter);
@@ -76,7 +80,7 @@ public class NotificacaoProfessor extends AppCompatActivity {
     @Override
     protected void onStart(){
         super.onStart();
-        user = ProfessorFirebase.getProfessorAtual();
+        //
     }
 
 }

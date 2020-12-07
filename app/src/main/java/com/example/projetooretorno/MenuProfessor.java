@@ -7,9 +7,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.projetooretorno.controle.MeusAlunosProfessor;
 import com.example.projetooretorno.controle.TelaProvisoria;
 import com.example.projetooretorno.helper.Conexao;
+import com.example.projetooretorno.telastestes.MeusAlunos;
 import com.example.projetooretorno.telastestes.NotificacaoProfessor;
 
 public class MenuProfessor extends AppCompatActivity {
@@ -25,7 +25,7 @@ public class MenuProfessor extends AppCompatActivity {
         nMeusAlunos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), MeusAlunosProfessor.class));
+                startActivity(new Intent(getApplicationContext(), MeusAlunos.class));
             }
         });
 

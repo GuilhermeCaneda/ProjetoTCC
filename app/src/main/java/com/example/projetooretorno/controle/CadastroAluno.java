@@ -120,6 +120,9 @@ public class CadastroAluno extends AppCompatActivity {
                             aluno.setId(firebaseAuth.getUid());
                             aluno.setNome(nNome.getText().toString());
                             aluno.setEmail(nEmail.getText().toString());
+
+                            aluno.setCaminhoFoto("");
+
                             switch(nFEtaria.getSelectedItemPosition()){
                                 case 0: aluno.setF_etaria("");
                                     break;
