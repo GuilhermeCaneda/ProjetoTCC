@@ -69,7 +69,9 @@ public class PerfilProfessor extends AppCompatActivity {
     }
 
     public void criarNotificacao(String idNotificacao, String idProfessor, String idAluno){
-        notificacao = new Notificacao(idNotificacao, idProfessor, idAluno);
+        notificacao = new Notificacao(idNotificacao, idProfessor, idAluno, "aluno", "professor", "solicitacao_matricula");
+
+
         if(notificacao != null){
             Toast.makeText(PerfilProfessor.this, "A notificação foi enviada com sucesso!", Toast.LENGTH_SHORT).show();
             databaseReference.child("Notificacao").child(notificacao.getIdNotificacao()).setValue(notificacao).addOnCompleteListener(new OnCompleteListener<Void>() {

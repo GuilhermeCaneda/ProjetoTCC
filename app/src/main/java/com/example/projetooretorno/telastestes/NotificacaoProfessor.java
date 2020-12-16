@@ -46,7 +46,6 @@ public class NotificacaoProfessor extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
 
         user = ProfessorFirebase.getProfessorAtual();
-        Toast.makeText(this, user.getUid(), Toast.LENGTH_SHORT).show();
         listarNotificacoes();
     }
 
@@ -61,11 +60,13 @@ public class NotificacaoProfessor extends AppCompatActivity {
                     String idNotificacao = dataSnapshot.child("idNotificacao").getValue().toString();
                     String idProfessor = dataSnapshot.child("idProfessor").getValue().toString();
                     String idAluno = dataSnapshot.child("idAluno").getValue().toString();
-                    Log.d("fff", idNotificacao + " " + idProfessor + " " + idAluno);
 
-                    if(idProfessor.equals(user.getUid())) {
-                        notificacoes.add(new Notificacao(idNotificacao, idProfessor, idAluno));
-                        Log.d("fff2", notificacoes.toString());
+                    String remetente = dataSnapshot.child("remetente").getValue().toString();
+                    String destinatario = dataSnapshot.child("destinatario").getValue().toString();
+                    String assunto = dataSnapshot.child("assunto").getValue().toString();
+
+                    if(idProfessor.equals(user.getUid()) && destinatario.equals("professor")) {
+                        notificacoes.add(new Notificacao(idNotificacao, idProfessor, idAluno, remetente, destinatario, assunto));
                     }
                 }
                 NotificacaoProfessorAdapter adapter = new NotificacaoProfessorAdapter(notificacoes, getApplicationContext());
@@ -75,12 +76,6 @@ public class NotificacaoProfessor extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
-    }
-
-    @Override
-    protected void onStart(){
-        super.onStart();
-        //
     }
 
 }

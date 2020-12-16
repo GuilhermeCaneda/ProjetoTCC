@@ -12,10 +12,12 @@ import android.view.View;
 import android.widget.AdapterView;
 
 import com.example.projetooretorno.R;
+import com.example.projetooretorno.helper.AlunoFirebase;
 import com.example.projetooretorno.helper.RecyclerItemClickListener;
 import com.example.projetooretorno.adapter.ProfessorAdapter;
 import com.example.projetooretorno.helper.Conexao;
 import com.example.projetooretorno.modelo.Professor;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -33,6 +35,8 @@ public class BuscarProfessor extends AppCompatActivity {
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference databaseReference;
 
+    FirebaseUser user;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +46,8 @@ public class BuscarProfessor extends AppCompatActivity {
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
+
+        user = AlunoFirebase.getAlunoAtual();
 
         listarProfessores();
 
@@ -57,7 +63,9 @@ public class BuscarProfessor extends AppCompatActivity {
             @Override
             public void onLongItemClick(View view, int position) {
                 Professor p = professores.get(position);
-                startActivity(new Intent(getBaseContext(), PerfilProfessor.class));
+                Intent i = new Intent(getBaseContext(), PerfilProfessor.class);
+                i.putExtra("professorSelecionado", p);
+                startActivity(i);
             }
 
             @Override
@@ -83,9 +91,8 @@ public class BuscarProfessor extends AppCompatActivity {
                         caminhoFotoProfessor = dataSnapshot.child("caminhoFoto").getValue().toString();
                     }
 
-                    Log.d("funciona", nomeProfessor + " " + emailProfessor + " "  + " " + caminhoFotoProfessor);
                     professores.add(new Professor(idProfessor, nomeProfessor, emailProfessor, caminhoFotoProfessor));
-                    Log.d("funciona2", professores.toString());
+
                 }
                 ProfessorAdapter adapter = new ProfessorAdapter(professores, getApplicationContext());
                 recyclerView.setAdapter(adapter);

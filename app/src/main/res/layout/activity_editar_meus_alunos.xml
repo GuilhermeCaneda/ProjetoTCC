@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/bg_degrade"
+    tools:context=".telastestes.EditarMeusAlunos"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/fotoEditarMeusAlunos"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="55dp"
+                android:src="@drawable/perfil"
+                app:civ_border_color="#688FDD"
+                app:civ_border_width="3dp"
+                tools:layout_editor_absoluteX="120dp"
+                tools:layout_editor_absoluteY="71dp" />
+
+            <EditText
+                android:id="@+id/nomeEditarMeusAlunos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/bg_edittext"
+                android:ems="10"
+                android:hint="Nome"
+                android:inputType="textPersonName"
+                android:paddingLeft="8dp"
+                android:textColor="#C8C7C7"
+                android:textColorHint="#C8C7C7"
+                tools:layout_editor_absoluteX="48dp"
+                tools:layout_editor_absoluteY="242dp" />
+
+            <EditText
+                android:id="@+id/emailEditarMeusAlunos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/bg_edittext"
+                android:ems="10"
+                android:hint="Email"
+                android:inputType="textEmailAddress"
+                android:paddingLeft="8dp"
+                android:textColor="#C8C7C7"
+                android:textColorHint="#C8C7C7"
+                tools:layout_editor_absoluteX="28dp"
+                tools:layout_editor_absoluteY="279dp" />
+
+            <EditText
+                android:id="@+id/valorMensalidadeEditarMeusAlunos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/bg_edittext"
+                android:ems="10"
+                android:hint="Valor do pagamento"
+                android:inputType="textPersonName"
+                android:paddingLeft="8dp"
+                android:textColor="#C8C7C7"
+                android:textColorHint="#C8C7C7"
+                tools:layout_editor_absoluteX="36dp"
+                tools:layout_editor_absoluteY="464dp" />
+
+            <EditText
+                android:id="@+id/dataPagamentoEditarMeusAlunos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/bg_edittext"
+                android:ems="10"
+                android:hint="Data do último pagamento"
+                android:inputType="textPersonName"
+                android:paddingLeft="8dp"
+                android:textColor="#C8C7C7"
+                android:textColorHint="#C8C7C7"
+                tools:layout_editor_absoluteX="36dp"
+                tools:layout_editor_absoluteY="566dp" />
+
+            <Button
+                android:id="@+id/confirmarEditarMeusAlunos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/bg_button"
+                android:text="Salvar Alteração"
+                android:textColor="#C8C7C7"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="332dp" />
+
+            <Button
+                android:id="@+id/cancelarEditarMeusAlunos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/bg_button_reserva"
+                android:text="Cancelar Matrícula"
+                android:textColor="#C8C7C7"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="332dp" />
+
+            <ProgressBar
+                android:id="@+id/progressBarEditarMeusAlunos"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                tools:layout_editor_absoluteX="181dp"
+                tools:layout_editor_absoluteY="527dp" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

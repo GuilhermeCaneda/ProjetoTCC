@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".telastestes.MeusAlunos"></activity>
+        <activity android:name=".telastestes.EditarMeusAlunos"></activity>
+        <activity android:name=".telastestes.MeusAlunos" />
         <activity android:name=".telastestes.NotificacaoAluno" />
         <activity android:name=".controle.MeusProfessoresAluno" />
         <activity android:name=".controle.TelaProvisoria" />

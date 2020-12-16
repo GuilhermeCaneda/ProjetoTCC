@@ -5,16 +5,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 
 import com.example.projetooretorno.R;
 import com.example.projetooretorno.adapter.MeusAlunosAdapter;
-import com.example.projetooretorno.adapter.NotificacaoProfessorAdapter;
 import com.example.projetooretorno.helper.Conexao;
 import com.example.projetooretorno.helper.ProfessorFirebase;
+import com.example.projetooretorno.helper.RecyclerItemClickListener;
 import com.example.projetooretorno.modelo.Matricula;
-import com.example.projetooretorno.modelo.Notificacao;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -45,6 +46,26 @@ public class MeusAlunos extends AppCompatActivity {
 
         user = ProfessorFirebase.getProfessorAtual();
         listarMatriculas();
+
+        recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Matricula m = matriculas.get(position);
+                Intent i = new Intent(getBaseContext(), EditarMeusAlunos.class);
+                i.putExtra("matriculaSelecionada", m);
+                startActivity(i);
+            }
+            @Override
+            public void onLongItemClick(View view, int position) {
+                Matricula m = matriculas.get(position);
+                Intent i = new Intent(getBaseContext(), EditarMeusAlunos.class);
+                i.putExtra("matriculaSelecionada", m);
+                startActivity(i);
+            }
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            }
+        }));
     }
 
     public void listarMatriculas(){

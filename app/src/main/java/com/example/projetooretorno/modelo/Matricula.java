@@ -1,10 +1,14 @@
 package com.example.projetooretorno.modelo;
 
-public class Matricula {
+import java.io.Serializable;
+
+public class Matricula implements Serializable {
 
     private String idMatricula;
     private String idProfessor;
     private String idAluno;
+    private String dataPagamento;
+    private String valor;
 
     @Override
     public String toString() {
@@ -12,6 +16,8 @@ public class Matricula {
                 "idMatricula='" + idMatricula + '\'' +
                 ", idProfessor='" + idProfessor + '\'' +
                 ", idAluno='" + idAluno + '\'' +
+                ", dataPagamento='" + dataPagamento + '\'' +
+                ", valor='" + valor + '\'' +
                 '}';
     }
 
@@ -22,6 +28,22 @@ public class Matricula {
         this.idMatricula = idMatricula;
         this.idProfessor = idProfessor;
         this.idAluno = idAluno;
+    }
+
+    public String getValor() {
+        return valor;
+    }
+
+    public void setValor(String valor) {
+        this.valor = valor;
+    }
+
+    public String getDataPagamento() {
+        return dataPagamento;
+    }
+
+    public void setDataPagamento(String dataPagamento) {
+        this.dataPagamento = dataPagamento;
     }
 
     public String getIdMatricula() {

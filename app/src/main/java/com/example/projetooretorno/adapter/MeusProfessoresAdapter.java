@@ -17,6 +17,8 @@ import com.bumptech.glide.Glide;
 import com.example.projetooretorno.R;
 import com.example.projetooretorno.helper.Conexao;
 import com.example.projetooretorno.modelo.Matricula;
+import com.example.projetooretorno.modelo.Notificacao;
+import com.example.projetooretorno.telastestes.EditarMeusAlunos;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -24,6 +26,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
+
+import static java.util.UUID.randomUUID;
 
 public class MeusProfessoresAdapter extends RecyclerView.Adapter<MeusProfessoresAdapter.MyViewHolder> {
 
@@ -35,7 +39,8 @@ public class MeusProfessoresAdapter extends RecyclerView.Adapter<MeusProfessores
     private DatabaseReference databaseReference;
     private DatabaseReference pesquisa;
 
-    String nome = "", email = "", caminhoFoto = "";
+    String nome = "", email = "", caminhoFoto = "", valorPagamento = "", dataPagamento = "";
+    Notificacao notificacao;
 
     public MeusProfessoresAdapter(List<Matricula> matriculas, Context context) {
         this.matriculas = matriculas;
@@ -64,8 +69,27 @@ public class MeusProfessoresAdapter extends RecyclerView.Adapter<MeusProfessores
                     caminhoFoto = snapshot.child("caminhoFoto").getValue().toString();
                 }
 
-                holder.nNome.setText(nome);
-                holder.nEmail.setText(email);
+                pesquisa = databaseReference.child("Professor").child(matricula.getIdProfessor()).child("Matricula").child(matricula.getIdMatricula());
+                pesquisa.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if(snapshot.child("valor").getValue()!=null) {
+                            valorPagamento = snapshot.child("valor").getValue().toString();
+                        }
+                        if(snapshot.child("dataPagamento").getValue()!=null){
+                            dataPagamento = snapshot.child("dataPagamento").getValue().toString();
+                        }
+                        holder.nValorPagamento.setText("Valor do pagamento: " + valorPagamento);
+                        holder.nDataPagamento.setText("Data do último pagamento: " + dataPagamento);
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+                holder.nNome.setText("Nome: " + nome);
+                holder.nEmail.setText("Email: " + email);
                 if (caminhoFoto!="") {
                     Uri uri = Uri.parse(caminhoFoto);
                     Glide.with(context).load(uri).into(holder.nFoto);
@@ -82,6 +106,12 @@ public class MeusProfessoresAdapter extends RecyclerView.Adapter<MeusProfessores
             @Override
             public void onClick(View v) {
                 Toast.makeText(context, "Excluir!", Toast.LENGTH_SHORT).show();
+
+                Toast.makeText(context, "Matrícula cancelada!", Toast.LENGTH_SHORT).show();
+                notificacao = new Notificacao(randomUUID().toString(), matricula.getIdProfessor(), matricula.getIdAluno(), "aluno", "professor", "remocao_matricula");
+                databaseReference.child("Notificacao").child(notificacao.getIdNotificacao()).setValue(notificacao);
+                databaseReference.child("Professor").child(matricula.getIdProfessor()).child("Matricula").child(matricula.getIdMatricula()).removeValue();
+                databaseReference.child("Aluno").child(matricula.getIdAluno()).child("Matricula").child(matricula.getIdMatricula()).removeValue();
             }
         });
     }
@@ -94,7 +124,7 @@ public class MeusProfessoresAdapter extends RecyclerView.Adapter<MeusProfessores
     public class MyViewHolder extends RecyclerView.ViewHolder{
 
         private ImageView nFoto;
-        private TextView nNome, nEmail;
+        private TextView nNome, nEmail, nValorPagamento, nDataPagamento;
         private Button nExcluir;
 
         public MyViewHolder(@NonNull View itemView) {
@@ -103,6 +133,8 @@ public class MeusProfessoresAdapter extends RecyclerView.Adapter<MeusProfessores
             nFoto = itemView.findViewById(R.id.fotoMeusProfessores);
             nNome = itemView.findViewById(R.id.nomeMeusProfessores);
             nEmail = itemView.findViewById(R.id.emailMeusProfessores);
+            nValorPagamento = itemView.findViewById(R.id.valorPagamentoMeusProfessores);
+            nDataPagamento = itemView.findViewById(R.id.dataPagamentoMeusProfessores);
             nExcluir = itemView.findViewById(R.id.excluirMeusProfessores);
         }
     }

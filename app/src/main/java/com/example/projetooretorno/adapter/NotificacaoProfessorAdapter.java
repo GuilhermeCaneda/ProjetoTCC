@@ -42,7 +42,7 @@ public class NotificacaoProfessorAdapter extends RecyclerView.Adapter<Notificaca
     private Context context;
     String nome = "";
     String caminhoFoto = "";
-    Notificacao notificacao;
+    Notificacao notificacao, notificacao_2;
 
     public NotificacaoProfessorAdapter(List<Notificacao> notificacoes, Context context) {
         this.notificacoes = notificacoes;
@@ -61,56 +61,89 @@ public class NotificacaoProfessorAdapter extends RecyclerView.Adapter<Notificaca
         notificacao = notificacoes.get(position);
         firebaseDatabase = Conexao.getFirebaseDatabase();
         databaseReference = firebaseDatabase.getReference();
-        pesquisa = databaseReference.child("Aluno").child(notificacao.getIdAluno());
-        pesquisa.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                nome = snapshot.child("nome").getValue().toString();
-                if(snapshot.child("caminhoFoto").getValue()!=null){
-                    caminhoFoto = snapshot.child("caminhoFoto").getValue().toString();
-                }
+        if(notificacao.getDestinatario().equals("professor")){
 
-                holder.nTexto.setText(nome + " gostaria de ser seu aluno(a).");
-                if (caminhoFoto!="") {
-                    Uri uri = Uri.parse(caminhoFoto);
-                    Glide.with(context).load(uri).into(holder.nFoto);
-                }else{
-                    holder.nFoto.setImageResource(R.drawable.perfil);
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-            }
-        });
 
-        holder.nAceitar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(context, "Matrícula aceita!", Toast.LENGTH_SHORT).show();
-                final Matricula matricula = new Matricula(randomUUID().toString(), notificacao.getIdProfessor(), notificacao.getIdAluno());
-                databaseReference.child("Professor").child(notificacao.getIdProfessor()).child("Matricula").child(matricula.getIdMatricula()).setValue(matricula).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        databaseReference.child("Aluno").child(notificacao.getIdAluno()).child("Matricula").child(matricula.getIdMatricula()).setValue(matricula).addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                databaseReference.child("Notificacao").child(notificacao.getIdNotificacao()).removeValue();
-                            }
-                        });
+            pesquisa = databaseReference.child("Aluno").child(notificacao.getIdAluno());
+            pesquisa.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if(snapshot.child("nome").getValue()!=null){ nome = snapshot.child("nome").getValue().toString(); }
+                    if(snapshot.child("caminhoFoto").getValue()!=null){ caminhoFoto = snapshot.child("caminhoFoto").getValue().toString(); }
+
+
+
+                    if (caminhoFoto!="") {
+                        Uri uri = Uri.parse(caminhoFoto);
+                        Glide.with(context).load(uri).into(holder.nFoto);
+                    }else{
+                        holder.nFoto.setImageResource(R.drawable.perfil);
                     }
+
+
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                }
+            });
+
+
+            switch(notificacao.getAssunto()){
+                case "solicitacao_matricula": holder.nTexto.setText(nome + " gostaria de ser seu aluno(a).");
+                    break;
+                case "remocao_matricula": holder.nTexto.setText(nome + " cancelou a matrícula.");
+                    break;
+                default:
+                    break;
+            }
+
+
+            switch (notificacao.getAssunto()){
+                case "solicitacao_matricula":
+                holder.nAceitar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                        Toast.makeText(context, "Matrícula aceita!", Toast.LENGTH_SHORT).show();
+                        final Matricula matricula = new Matricula(randomUUID().toString(), notificacao.getIdProfessor(), notificacao.getIdAluno());
+                        databaseReference.child("Professor").child(notificacao.getIdProfessor()).child("Matricula").child(matricula.getIdMatricula()).setValue(matricula).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            databaseReference.child("Aluno").child(notificacao.getIdAluno()).child("Matricula").child(matricula.getIdMatricula()).setValue(matricula).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    notificacao_2 = new Notificacao(randomUUID().toString(), notificacao.getIdProfessor(), notificacao.getIdAluno(), "professor", "aluno", "aprovacao_matricula");
+                                    databaseReference.child("Notificacao").child(notificacao.getIdNotificacao()).removeValue();
+                                    databaseReference.child("Notificacao").child(notificacao_2.getIdNotificacao()).setValue(notificacao_2);
+                                }});
+                        }
+                    });
+                }
                 });
+                break;
+                default: holder.nAceitar.setVisibility(View.GONE);
+                break;
             }
-        });
 
-        holder.nRecusar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(context, "Matricula recusada!", Toast.LENGTH_SHORT).show();
-                notificacao = notificacoes.get(position);
-                databaseReference.child("Notificacao").child(notificacao.getIdNotificacao()).removeValue();
-            }
-        });
 
+            holder.nRecusar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    notificacao = notificacoes.get(position);
+                    switch (notificacao.getAssunto()){
+                        case "solicitacao_matricula":
+                            notificacao_2 = new Notificacao(randomUUID().toString(), notificacao.getIdProfessor(), notificacao.getIdAluno(), "professor", "aluno", "negacao_matricula");
+                            databaseReference.child("Notificacao").child(notificacao_2.getIdNotificacao()).setValue(notificacao_2);
+                            break;
+                        default:
+                            break;
+                    }
+                    Toast.makeText(context, "Notificação removida!", Toast.LENGTH_SHORT).show();
+                    databaseReference.child("Notificacao").child(notificacao.getIdNotificacao()).removeValue();
+                }
+            });
+
+
+        }
     }
 
     @Override
