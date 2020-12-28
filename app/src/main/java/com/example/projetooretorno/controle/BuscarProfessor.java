@@ -16,6 +16,7 @@ import com.example.projetooretorno.helper.AlunoFirebase;
 import com.example.projetooretorno.helper.RecyclerItemClickListener;
 import com.example.projetooretorno.adapter.ProfessorAdapter;
 import com.example.projetooretorno.helper.Conexao;
+import com.example.projetooretorno.modelo.Matricula;
 import com.example.projetooretorno.modelo.Professor;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -33,9 +34,14 @@ public class BuscarProfessor extends AppCompatActivity {
     private List<Professor> professores = new ArrayList<>();
 
     private FirebaseDatabase firebaseDatabase;
-    private DatabaseReference databaseReference;
+    private DatabaseReference databaseReference, pesquisa;
 
     FirebaseUser user;
+
+
+
+    Matricula matricula;
+    List<Matricula> matriculas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +78,10 @@ public class BuscarProfessor extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             }
         }));
+
+
+
+
     }
 
     public void listarProfessores(){
@@ -85,13 +95,23 @@ public class BuscarProfessor extends AppCompatActivity {
                     String idProfessor = dataSnapshot.child("id").getValue().toString();
                     String nomeProfessor = dataSnapshot.child("nome").getValue().toString();
                     String emailProfessor = dataSnapshot.child("email").getValue().toString();
-                    //String enderecoProfessor = dataSnapshot.child("endereco").getValue().toString();
+
+
+                    String enderecoProfessor = dataSnapshot.child("endereco").getValue().toString();
+
+
                     String caminhoFotoProfessor = "";
                     if(dataSnapshot.child("caminhoFoto").getValue()!=null){
                         caminhoFotoProfessor = dataSnapshot.child("caminhoFoto").getValue().toString();
                     }
 
-                    professores.add(new Professor(idProfessor, nomeProfessor, emailProfessor, caminhoFotoProfessor));
+
+
+
+
+
+                    professores.add(new Professor(idProfessor, nomeProfessor, emailProfessor, caminhoFotoProfessor, enderecoProfessor));
+
 
                 }
                 ProfessorAdapter adapter = new ProfessorAdapter(professores, getApplicationContext());

@@ -9,14 +9,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".telastestes.EditarMeusAlunos"></activity>
-        <activity android:name=".telastestes.MeusAlunos" />
-        <activity android:name=".telastestes.NotificacaoAluno" />
+        <activity android:name=".telastestes.VisualizarAvaliacoesProfessor"></activity>
+        <activity android:name=".controle.EditarMeusAlunos" />
+        <activity android:name=".controle.MeusAlunos" />
+        <activity android:name=".controle.NotificacaoAluno" />
         <activity android:name=".controle.MeusProfessoresAluno" />
         <activity android:name=".controle.TelaProvisoria" />
         <activity android:name=".controle.NotificacaoProfessor" />
         <activity android:name=".MenuProfessor" />
-        <activity android:name=".telastestes.NotificacaoProfessor" />
+        <activity android:name=".controle.NotificacaoProfessor" />
         <activity android:name=".controle.BuscarProfessor" />
         <activity
             android:name=".controle.PerfilProfessor"

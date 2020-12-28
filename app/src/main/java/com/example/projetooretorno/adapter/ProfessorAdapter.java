@@ -41,7 +41,7 @@ public class ProfessorAdapter extends RecyclerView.Adapter<ProfessorAdapter.MyVi
 
         Professor professor = professores.get(position);
         holder.nNome.setText(professor.getNome());
-        //holder.nEndereco.setText(professor.getEndereco());
+        holder.nEndereco.setText(professor.getEndereco());
         holder.nEmail.setText(professor.getEmail());
         if (professor.getCaminhoFoto() != "") {
             Uri uri = Uri.parse(professor.getCaminhoFoto());

@@ -11,7 +11,7 @@ import com.example.projetooretorno.controle.EditarPerfilAluno;
 import com.example.projetooretorno.controle.MeusProfessoresAluno;
 import com.example.projetooretorno.helper.Conexao;
 import com.example.projetooretorno.controle.BuscarProfessor;
-import com.example.projetooretorno.telastestes.NotificacaoAluno;
+import com.example.projetooretorno.controle.NotificacaoAluno;
 
 public class MenuAluno extends AppCompatActivity {
 

@@ -33,7 +33,7 @@ public class MeusAlunosAdapter extends RecyclerView.Adapter<MeusAlunosAdapter.My
 
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference databaseReference;
-    private DatabaseReference pesquisa;
+    private DatabaseReference pesquisa, pesquisa2;
 
     String nome = "", email = "", caminhoFoto = "", pagamento = "", dataPagamento = "";
 
@@ -54,6 +54,30 @@ public class MeusAlunosAdapter extends RecyclerView.Adapter<MeusAlunosAdapter.My
         matricula = matriculas.get(position);
         firebaseDatabase = Conexao.getFirebaseDatabase();
         databaseReference = firebaseDatabase.getReference();
+
+
+
+        pesquisa2 = databaseReference.child("Aluno").child(matricula.getIdAluno()).child("Matricula").child(matricula.getIdMatricula());
+        pesquisa2.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.child("valor").getValue()!=null) {
+                    pagamento = snapshot.child("valor").getValue().toString();
+                    holder.nPagamento.setText("Valor do pagamento: " + pagamento);
+                }
+                if(snapshot.child("dataPagamento").getValue()!=null){
+                    dataPagamento = snapshot.child("dataPagamento").getValue().toString();
+                    holder.nDataPagamento.setText("Data do último pagamento: " + dataPagamento);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+
+
+
+
         pesquisa = databaseReference.child("Aluno").child(matricula.getIdAluno());
         pesquisa.addValueEventListener(new ValueEventListener() {
             @Override
@@ -63,25 +87,6 @@ public class MeusAlunosAdapter extends RecyclerView.Adapter<MeusAlunosAdapter.My
                 if(snapshot.child("caminhoFoto").getValue()!=null){
                     caminhoFoto = snapshot.child("caminhoFoto").getValue().toString();
                 }
-
-                pesquisa = databaseReference.child("Aluno").child(matricula.getIdAluno()).child("Matricula").child(matricula.getIdMatricula());
-                pesquisa.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if(snapshot.child("valor").getValue()!=null) {
-                            pagamento = snapshot.child("valor").getValue().toString();
-                        }
-                        holder.nPagamento.setText("Valor do pagamento: " + pagamento);
-                        if(snapshot.child("dataPagamento").getValue()!=null){
-                            dataPagamento = snapshot.child("dataPagamento").getValue().toString();
-                        }
-                        holder.dataPagamento.setText("Data do último pagamento: " + dataPagamento);
-                    }
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                    }
-                });
-
                 holder.nNome.setText("Nome: " + nome);
                 holder.nEmail.setText("Email: " + email);
 
@@ -107,7 +112,7 @@ public class MeusAlunosAdapter extends RecyclerView.Adapter<MeusAlunosAdapter.My
     public class MyViewHolder extends RecyclerView.ViewHolder{
 
         private ImageView nFoto;
-        private TextView nNome, nEmail, nPagamento, dataPagamento;
+        private TextView nNome, nEmail, nPagamento, nDataPagamento;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -116,7 +121,7 @@ public class MeusAlunosAdapter extends RecyclerView.Adapter<MeusAlunosAdapter.My
             nNome = itemView.findViewById(R.id.nomeMeusAlunos);
             nEmail = itemView.findViewById(R.id.emailMeusAlunos);
             nPagamento = itemView.findViewById(R.id.valorMeusAlunos);
-            dataPagamento = itemView.findViewById(R.id.dataPagamentoMeusAlunos);
+            nDataPagamento = itemView.findViewById(R.id.dataPagamentoMeusAlunos);
         }
     }
 }

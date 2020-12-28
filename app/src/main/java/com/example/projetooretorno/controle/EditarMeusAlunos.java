@@ -1,9 +1,8 @@
-package com.example.projetooretorno.telastestes;
+package com.example.projetooretorno.controle;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -15,7 +14,6 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.projetooretorno.R;
-import com.example.projetooretorno.controle.CadastroAluno;
 import com.example.projetooretorno.helper.Conexao;
 import com.example.projetooretorno.modelo.Matricula;
 import com.example.projetooretorno.modelo.Notificacao;

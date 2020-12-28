@@ -9,8 +9,8 @@ import android.widget.Button;
 
 import com.example.projetooretorno.controle.TelaProvisoria;
 import com.example.projetooretorno.helper.Conexao;
-import com.example.projetooretorno.telastestes.MeusAlunos;
-import com.example.projetooretorno.telastestes.NotificacaoProfessor;
+import com.example.projetooretorno.controle.MeusAlunos;
+import com.example.projetooretorno.controle.NotificacaoProfessor;
 
 public class MenuProfessor extends AppCompatActivity {
 

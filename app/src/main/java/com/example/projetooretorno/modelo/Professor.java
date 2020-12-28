@@ -42,7 +42,7 @@ public class Professor implements Serializable {
     public Professor() {
     }
 
-    public Professor(String id, String nome, String email, String caminhoFoto) {
+    public Professor(String id, String nome, String email, String caminhoFoto, String endereco) {
         this.id = id;
         this.nome = nome;
         this.email = email;

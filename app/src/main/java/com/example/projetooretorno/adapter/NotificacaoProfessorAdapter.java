@@ -1,7 +1,6 @@
 package com.example.projetooretorno.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,11 +15,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.projetooretorno.R;
-import com.example.projetooretorno.controle.CadastroAluno;
 import com.example.projetooretorno.helper.Conexao;
 import com.example.projetooretorno.modelo.Matricula;
 import com.example.projetooretorno.modelo.Notificacao;
-import com.example.projetooretorno.telastestes.NotificacaoProfessor;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;

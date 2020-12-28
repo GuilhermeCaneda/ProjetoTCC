@@ -3,6 +3,7 @@ package com.example.projetooretorno.controle;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,6 +19,7 @@ import com.example.projetooretorno.helper.AlunoFirebase;
 import com.example.projetooretorno.helper.Conexao;
 import com.example.projetooretorno.modelo.Notificacao;
 import com.example.projetooretorno.modelo.Professor;
+import com.example.projetooretorno.telastestes.VisualizarAvaliacoesProfessor;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseUser;
@@ -35,11 +37,11 @@ public class PerfilProfessor extends AppCompatActivity {
     Notificacao notificacao;
 
     ImageView nFoto;
-    TextView nNome, nEndereco, nMensalidade, nDisponibilidade, nBiografia, nInstrumentos;
+    TextView nNome, nEndereco, nValor, nDisponibilidade, nBiografia, nInstrumentos;
     Button nMatricular, nAvaliacoes;
 
     FirebaseDatabase firebaseDatabase;
-    DatabaseReference databaseReference;
+    DatabaseReference databaseReference, pesquisa;
     FirebaseUser firebaseUser;
 
     @Override
@@ -49,12 +51,19 @@ public class PerfilProfessor extends AppCompatActivity {
         nFoto = findViewById(R.id.fotoPerfilProfessor);
         nNome = findViewById(R.id.nomePerfilProfessor);
         nEndereco = findViewById(R.id.enderecoPerfilProfessor);
-        nMensalidade = findViewById(R.id.mensalidadePerfilProfessor);
+        nValor = findViewById(R.id.mensalidadePerfilProfessor);
         nDisponibilidade = findViewById(R.id.disponibilidadePerfilProfessor);
         nBiografia = findViewById(R.id.biografiaPerfilProfessor);
         nInstrumentos = findViewById(R.id.instrumentosPerfilProfessor);
-        nAvaliacoes = findViewById(R.id.avaliacoesPerfilProfessor);
         setarAtributos();
+
+        nAvaliacoes = findViewById(R.id.avaliacoesPerfilProfessor);
+        nAvaliacoes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), VisualizarAvaliacoesProfessor.class));
+            }
+        });
 
         nMatricular = findViewById(R.id.matricularPerfilProfessor);
         nMatricular.setOnClickListener(new View.OnClickListener() {
@@ -91,14 +100,30 @@ public class PerfilProfessor extends AppCompatActivity {
         }
         nNome.setText(professor.getNome());
 
-        /*
-        nEndereco.setText(professor.getEndereco());
-        nInstrumentos.setText(professor.getInstrumentos());
-        nBiografia.setText(professor.getBiografia());
-        nMensalidade.setText(professor.getValor());
-        nBiografia.setText(professor.getBiografia());
-        nDisponibilidade.setText(professor.getDisponibilidade());
-        */
+
+        firebaseDatabase = Conexao.getFirebaseDatabase();
+        databaseReference = firebaseDatabase.getReference();
+        pesquisa = databaseReference.child("Professor").child(professor.getId());
+        pesquisa.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String endereco = snapshot.child("endereco").getValue().toString();
+                nEndereco.setText(endereco);
+                String instrumentos = snapshot.child("instrumentos").getValue().toString();
+                nInstrumentos.setText(instrumentos);
+                String biografia = snapshot.child("biografia").getValue().toString();
+                nBiografia.setText(biografia);
+                String valor = snapshot.child("valor").getValue().toString();
+                nValor.setText(valor);
+                String disponibilidade = snapshot.child("disponibilidade").getValue().toString();
+                nDisponibilidade.setText(disponibilidade);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         if (professor.getCaminhoFoto() != null) {
             Uri uri = Uri.parse(professor.getCaminhoFoto());
@@ -111,8 +136,6 @@ public class PerfilProfessor extends AppCompatActivity {
     @Override
     protected void onStart(){
         super.onStart();
-        firebaseDatabase = Conexao.getFirebaseDatabase();
-        databaseReference = firebaseDatabase.getReference();
         firebaseUser = AlunoFirebase.getAlunoAtual();
     }
 }

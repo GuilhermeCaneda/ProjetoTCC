@@ -1,198 +1,218 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_degrade"
+    android:orientation="vertical"
     tools:context=".controle.PerfilProfessor">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.7" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.31" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.5" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="261dp" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="213dp" />
-
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/fotoPerfilProfessor"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:src="@drawable/perfil"
-        app:civ_border_color="#688FDD"
-        app:civ_border_width="3dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline3"
-        app:layout_constraintEnd_toStartOf="@+id/guideline5"
-        app:layout_constraintStart_toStartOf="@+id/guideline4"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/disponibilidadePerfilProfessor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Disponibilidade"
-        android:textColor="#C8C7C7"
-        android:textColorHint="#C8C7C7"
-        app:layout_constraintBottom_toTopOf="@+id/guideline"
-        app:layout_constraintEnd_toEndOf="@+id/icone_disponibilidade"
-        app:layout_constraintStart_toStartOf="@+id/icone_disponibilidade"
-        app:layout_constraintTop_toBottomOf="@+id/icone_disponibilidade" />
-
-    <TextView
-        android:id="@+id/mensalidadePerfilProfessor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Mensalidade"
-        android:textColor="#C8C7C7"
-        android:textColorHint="#C8C7C7"
-        app:layout_constraintBottom_toTopOf="@+id/guideline"
-        app:layout_constraintEnd_toEndOf="@+id/icone_dinheiro"
-        app:layout_constraintStart_toStartOf="@+id/icone_dinheiro"
-        app:layout_constraintTop_toBottomOf="@+id/icone_dinheiro" />
-
-    <TextView
-        android:id="@+id/enderecoPerfilProfessor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Endereço"
-        android:textColor="#C8C7C7"
-        android:textColorHint="#C8C7C7"
-        app:layout_constraintEnd_toEndOf="@+id/icone_localidade"
-        app:layout_constraintStart_toStartOf="@+id/icone_localidade"
-        app:layout_constraintTop_toBottomOf="@+id/icone_localidade" />
-
-    <TextView
-        android:id="@+id/nomePerfilProfessor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Nome"
-        android:textColor="#C8C7C7"
-        android:textColorHint="#C8C7C7"
-        app:layout_constraintBottom_toTopOf="@+id/guideline3"
-        app:layout_constraintEnd_toStartOf="@+id/guideline5"
-        app:layout_constraintStart_toStartOf="@+id/guideline4"
-        app:layout_constraintTop_toBottomOf="@+id/fotoPerfilProfessor"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <TextView
-        android:id="@+id/biografiaPerfilProfessor"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="120dp"
-        android:padding="8dp"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp"
-        android:text="Biografia"
-        android:textColor="#C8C7C7"
-        android:textColorHint="#C8C7C7"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/avaliacoesPerfilProfessor" />
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/instrumentosPerfilProfessor"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:padding="8dp"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp"
-        android:text="Instrumentos"
-        android:textColor="#C8C7C7"
-        android:textColorHint="#C8C7C7"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/enderecoPerfilProfessor" />
 
-    <ImageView
-        android:id="@+id/icone_dinheiro"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guideline5"
-        app:layout_constraintTop_toTopOf="@+id/guideline3"
-        app:srcCompat="@drawable/ic_dinheiro" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.7" />
 
-    <ImageView
-        android:id="@+id/icone_disponibilidade"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        app:layout_constraintEnd_toStartOf="@+id/guideline4"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline3"
-        app:srcCompat="@drawable/ic_disponibilidade" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.31" />
 
-    <ImageView
-        android:id="@+id/icone_localidade"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginRight="30dp"
-        app:layout_constraintEnd_toStartOf="@+id/guideline5"
-        app:layout_constraintHorizontal_bias="0.481"
-        app:layout_constraintStart_toStartOf="@+id/guideline4"
-        app:layout_constraintTop_toTopOf="@+id/guideline3"
-        app:srcCompat="@drawable/ic_localidade" />
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="44dp"
+            app:layout_constraintBottom_toTopOf="@+id/avaliacoesPerfilProfessor"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline"
+            app:layout_constraintVertical_bias="0.625"
+            app:srcCompat="@drawable/ic_nota_musical" />
 
-    <Button
-        android:id="@+id/matricularPerfilProfessor"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="108dp"
-        android:background="@drawable/bg_button"
-        android:text="Solicitar Matrícula"
-        android:textColor="#C8C7C7"
-        android:textColorHint="#C8C7C7"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/biografiaPerfilProfessor"
-        app:layout_constraintVertical_bias="0.0" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
 
-    <Button
-        android:id="@+id/avaliacoesPerfilProfessor"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:text="Visualizar avaliações"
-        android:textColor="#C8C7C7"
-        android:textColorHint="#C8C7C7"
-        android:background="@drawable/bg_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/instrumentosPerfilProfessor" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="261dp" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="213dp" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/fotoPerfilProfessor"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:src="@drawable/perfil"
+            app:civ_border_color="#688FDD"
+            app:civ_border_width="3dp"
+            app:layout_constraintBottom_toTopOf="@+id/guideline3"
+            app:layout_constraintEnd_toStartOf="@+id/guideline5"
+            app:layout_constraintStart_toStartOf="@+id/guideline4"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/disponibilidadePerfilProfessor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Disponibilidade"
+            android:textColor="#C8C7C7"
+            android:textColorHint="#C8C7C7"
+            app:layout_constraintBottom_toTopOf="@+id/guideline"
+            app:layout_constraintEnd_toEndOf="@+id/icone_disponibilidade"
+            app:layout_constraintStart_toStartOf="@+id/icone_disponibilidade"
+            app:layout_constraintTop_toBottomOf="@+id/icone_disponibilidade" />
+
+        <TextView
+            android:id="@+id/mensalidadePerfilProfessor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mensalidade"
+            android:textColor="#C8C7C7"
+            android:textColorHint="#C8C7C7"
+            app:layout_constraintBottom_toTopOf="@+id/guideline"
+            app:layout_constraintEnd_toEndOf="@+id/icone_dinheiro"
+            app:layout_constraintStart_toStartOf="@+id/icone_dinheiro"
+            app:layout_constraintTop_toBottomOf="@+id/icone_dinheiro" />
+
+        <TextView
+            android:id="@+id/enderecoPerfilProfessor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Endereço"
+            android:textColor="#C8C7C7"
+            android:textColorHint="#C8C7C7"
+            app:layout_constraintEnd_toEndOf="@+id/icone_localidade"
+            app:layout_constraintStart_toStartOf="@+id/icone_localidade"
+            app:layout_constraintTop_toBottomOf="@+id/icone_localidade" />
+
+        <TextView
+            android:id="@+id/nomePerfilProfessor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nome"
+            android:textColor="#C8C7C7"
+            android:textColorHint="#C8C7C7"
+            app:layout_constraintBottom_toTopOf="@+id/guideline3"
+            app:layout_constraintEnd_toStartOf="@+id/guideline5"
+            app:layout_constraintStart_toStartOf="@+id/guideline4"
+            app:layout_constraintTop_toBottomOf="@+id/fotoPerfilProfessor"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/biografiaPerfilProfessor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="116dp"
+            android:padding="8dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:text="Biografia"
+            android:textColor="#C8C7C7"
+            android:textColorHint="#C8C7C7"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/avaliacoesPerfilProfessor" />
+
+        <TextView
+            android:id="@+id/instrumentosPerfilProfessor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:text="Instrumentos"
+            android:textColor="#C8C7C7"
+            android:textColorHint="#C8C7C7"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView"
+            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintTop_toTopOf="@+id/imageView" />
+
+        <ImageView
+            android:id="@+id/icone_dinheiro"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline5"
+            app:layout_constraintTop_toTopOf="@+id/guideline3"
+            app:srcCompat="@drawable/ic_dinheiro" />
+
+        <ImageView
+            android:id="@+id/icone_disponibilidade"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline4"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline3"
+            app:srcCompat="@drawable/ic_disponibilidade" />
+
+        <ImageView
+            android:id="@+id/icone_localidade"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginRight="30dp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline5"
+            app:layout_constraintHorizontal_bias="0.481"
+            app:layout_constraintStart_toStartOf="@+id/guideline4"
+            app:layout_constraintTop_toTopOf="@+id/guideline3"
+            app:srcCompat="@drawable/ic_localidade" />
+
+        <Button
+            android:id="@+id/matricularPerfilProfessor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="128dp"
+            android:background="@drawable/bg_button"
+            android:text="Solicitar Matrícula"
+            android:textColor="#C8C7C7"
+            android:textColorHint="#C8C7C7"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/biografiaPerfilProfessor" />
+
+        <Button
+            android:id="@+id/avaliacoesPerfilProfessor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="68dp"
+            android:background="@drawable/bg_button"
+            android:text="Visualizar avaliações"
+            android:textColor="#C8C7C7"
+            android:textColorHint="#C8C7C7"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/enderecoPerfilProfessor" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
