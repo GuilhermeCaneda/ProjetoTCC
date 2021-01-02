@@ -17,7 +17,6 @@
         <activity android:name=".controle.TelaProvisoria" />
         <activity android:name=".controle.NotificacaoProfessor" />
         <activity android:name=".MenuProfessor" />
-        <activity android:name=".controle.NotificacaoProfessor" />
         <activity android:name=".controle.BuscarProfessor" />
         <activity
             android:name=".controle.PerfilProfessor"

@@ -34,11 +34,9 @@ public class BuscarProfessor extends AppCompatActivity {
     private List<Professor> professores = new ArrayList<>();
 
     private FirebaseDatabase firebaseDatabase;
-    private DatabaseReference databaseReference, pesquisa;
+    private DatabaseReference databaseReference;
 
     FirebaseUser user;
-
-
 
     Matricula matricula;
     List<Matricula> matriculas;
@@ -78,10 +76,6 @@ public class BuscarProfessor extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             }
         }));
-
-
-
-
     }
 
     public void listarProfessores(){
@@ -90,29 +84,17 @@ public class BuscarProfessor extends AppCompatActivity {
         DatabaseReference pesquisarProfessores = databaseReference.child("Professor");
         pesquisarProfessores.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
+            public void onDataChange(@NonNull final DataSnapshot snapshot) {
                 for(DataSnapshot dataSnapshot: snapshot.getChildren()){
-                    String idProfessor = dataSnapshot.child("id").getValue().toString();
-                    String nomeProfessor = dataSnapshot.child("nome").getValue().toString();
-                    String emailProfessor = dataSnapshot.child("email").getValue().toString();
-
-
-                    String enderecoProfessor = dataSnapshot.child("endereco").getValue().toString();
-
-
-                    String caminhoFotoProfessor = "";
-                    if(dataSnapshot.child("caminhoFoto").getValue()!=null){
-                        caminhoFotoProfessor = dataSnapshot.child("caminhoFoto").getValue().toString();
-                    }
-
-
-
-
-
-
-                    professores.add(new Professor(idProfessor, nomeProfessor, emailProfessor, caminhoFotoProfessor, enderecoProfessor));
-
-
+                     String idProfessor = dataSnapshot.child("id").getValue().toString();
+                     String nomeProfessor = dataSnapshot.child("nome").getValue().toString();
+                     String emailProfessor = dataSnapshot.child("email").getValue().toString();
+                     String enderecoProfessor = dataSnapshot.child("endereco").getValue().toString();
+                     String caminhoFotoProfessor = "";
+                     if(dataSnapshot.child("caminhoFoto").getValue()!=null) {
+                         caminhoFotoProfessor = dataSnapshot.child("caminhoFoto").getValue().toString();
+                     }
+                     professores.add(new Professor(idProfessor, nomeProfessor, emailProfessor, caminhoFotoProfessor, enderecoProfessor));
                 }
                 ProfessorAdapter adapter = new ProfessorAdapter(professores, getApplicationContext());
                 recyclerView.setAdapter(adapter);
@@ -122,6 +104,4 @@ public class BuscarProfessor extends AppCompatActivity {
             }
         });
     }
-
-
 }

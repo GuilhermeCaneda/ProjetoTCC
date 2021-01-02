@@ -50,8 +50,9 @@ public class Professor implements Serializable {
         this.caminhoFoto = caminhoFoto;
     }
 
-
-
+    public Professor(String id) {
+        this.id = id;
+    }
 
     public String getBiografia() {
         return biografia;

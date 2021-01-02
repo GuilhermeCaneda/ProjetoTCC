@@ -5,7 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 
 import com.example.projetooretorno.R;
 import com.example.projetooretorno.adapter.MeusAlunosAdapter;
@@ -13,7 +16,9 @@ import com.example.projetooretorno.adapter.MeusProfessoresAdapter;
 import com.example.projetooretorno.helper.AlunoFirebase;
 import com.example.projetooretorno.helper.Conexao;
 import com.example.projetooretorno.helper.ProfessorFirebase;
+import com.example.projetooretorno.helper.RecyclerItemClickListener;
 import com.example.projetooretorno.modelo.Matricula;
+import com.example.projetooretorno.modelo.Professor;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -45,6 +50,29 @@ public class MeusProfessoresAluno extends AppCompatActivity {
 
         user = AlunoFirebase.getAlunoAtual();
         listarMatriculas();
+
+        recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Matricula m = matriculas.get(position);
+                Professor p = new Professor(m.getIdProfessor());
+                Intent i = new Intent(getBaseContext(), PerfilProfessor.class);
+                i.putExtra("professorSelecionado", p);
+                startActivity(i);
+            }
+
+            @Override
+            public void onLongItemClick(View view, int position) {
+                Matricula m = matriculas.get(position);
+                Professor p = new Professor(m.getIdProfessor());
+                Intent i = new Intent(getBaseContext(), PerfilProfessor.class);
+                i.putExtra("professorSelecionado", p);
+                startActivity(i);
+            }
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            }
+        }));
     }
 
     public void listarMatriculas(){

@@ -38,7 +38,7 @@ public class PerfilProfessor extends AppCompatActivity {
 
     ImageView nFoto;
     TextView nNome, nEndereco, nValor, nDisponibilidade, nBiografia, nInstrumentos;
-    Button nMatricular, nAvaliacoes;
+    Button nMatricular, nAvaliacoes, nCancelarMatricula;
 
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference, pesquisa;
@@ -61,26 +61,152 @@ public class PerfilProfessor extends AppCompatActivity {
         nAvaliacoes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), VisualizarAvaliacoesProfessor.class));
+                Professor prof = new Professor();
+                prof.setId(professor.getId());
+                Intent intent = new Intent(getBaseContext(), VisualizarAvaliacoesProfessor.class);
+                intent.putExtra("professorAvaliacoes", prof);
+                startActivity(intent);
             }
         });
 
+
+        nCancelarMatricula = findViewById(R.id.cancelarMatriculaPerfilProfessor);
         nMatricular = findViewById(R.id.matricularPerfilProfessor);
-        nMatricular.setOnClickListener(new View.OnClickListener() {
+
+
+        //ERRO AQUI
+        verificarNotificacoes();
+        verificarMatriculas();
+
+
+
+    }
+
+
+    public void verificarMatriculas(){
+        firebaseDatabase = Conexao.getFirebaseDatabase();
+        databaseReference = firebaseDatabase.getReference();
+        DatabaseReference verificarMatricula = databaseReference.child("Professor").child(professor.getId()).child("Matricula");
+        verificarMatricula.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onClick(View v) {
-                String idNotificacao = randomUUID().toString();
-                String idProfessor = professor.getId();
-                String idAluno = firebaseUser.getUid();
-                criarNotificacao(idNotificacao, idProfessor, idAluno);
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot dataSnapshot: snapshot.getChildren()){
+                    final String idMatricula = dataSnapshot.child("idMatricula").getValue().toString();
+                    String idAlunoo = dataSnapshot.child("idAluno").getValue().toString();
+                    if(idAlunoo.equals(firebaseUser.getUid())){
+                        nMatricular.setFocusable(false);
+                        nMatricular.setText("Você já está matriculado.");
+                        nCancelarMatricula.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                removerMatricula(idMatricula);
+                            }
+                        });
+                    }
+                }
             }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {}
         });
     }
 
+    public void verificarNotificacoes(){
+        firebaseDatabase = Conexao.getFirebaseDatabase();
+        databaseReference = firebaseDatabase.getReference();
+        DatabaseReference verificarNotificacao = databaseReference.child("Notificacao");
+        verificarNotificacao.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot dataSnapshot: snapshot.getChildren()){
+                    final String idNotificacao = dataSnapshot.child("idNotificacao").getValue().toString();
+                    String idProfessor = dataSnapshot.child("idProfessor").getValue().toString();
+                    String idAlunooo = dataSnapshot.child("idAluno").getValue().toString();
+                    String assunto = dataSnapshot.child("assunto").getValue().toString();
+
+
+
+
+                    if(idProfessor.equals(professor.getId())){
+                        if(idAlunooo.equals(firebaseUser.getUid())){
+                            if(assunto.equals("solicitacao_matricula")){
+                                nCancelarMatricula.setVisibility(View.GONE);
+                                nMatricular.setVisibility(View.VISIBLE);
+                                nMatricular.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        databaseReference.child("Notificacao").child(idNotificacao).removeValue();
+                                        nMatricular.setText("Solicitar Matrícula");
+                                        nMatricular.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                String idNotificacao = randomUUID().toString();
+                                                String idProfessor = professor.getId();
+                                                String idAluno = firebaseUser.getUid();
+                                                criarNotificacao(idNotificacao, idProfessor, idAluno);
+                                            }
+                                        });
+                                    }
+                                });
+                            }else{
+                                nCancelarMatricula.setVisibility(View.GONE);
+                                nMatricular.setVisibility(View.VISIBLE);
+                                nMatricular.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        String idNotificacao = randomUUID().toString();
+                                        String idProfessor = professor.getId();
+                                        String idAluno = firebaseUser.getUid();
+                                        criarNotificacao(idNotificacao, idProfessor, idAluno);
+                                    }
+                                });
+                            }
+                        }else{
+                            nCancelarMatricula.setVisibility(View.GONE);
+                            nMatricular.setVisibility(View.VISIBLE);
+                            nMatricular.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    String idNotificacao = randomUUID().toString();
+                                    String idProfessor = professor.getId();
+                                    String idAluno = firebaseUser.getUid();
+                                    criarNotificacao(idNotificacao, idProfessor, idAluno);
+                                }
+                            });
+                        }
+                    }else{
+                        nCancelarMatricula.setVisibility(View.GONE);
+                        nMatricular.setVisibility(View.VISIBLE);
+                        nMatricular.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                String idNotificacao = randomUUID().toString();
+                                String idProfessor = professor.getId();
+                                String idAluno = firebaseUser.getUid();
+                                criarNotificacao(idNotificacao, idProfessor, idAluno);
+                            }
+                        });
+                    }
+
+
+
+
+
+                }
+            }
+
+
+
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {}
+        });
+    }
+
+
+
+
     public void criarNotificacao(String idNotificacao, String idProfessor, String idAluno){
         notificacao = new Notificacao(idNotificacao, idProfessor, idAluno, "aluno", "professor", "solicitacao_matricula");
-
-
         if(notificacao != null){
             Toast.makeText(PerfilProfessor.this, "A notificação foi enviada com sucesso!", Toast.LENGTH_SHORT).show();
             databaseReference.child("Notificacao").child(notificacao.getIdNotificacao()).setValue(notificacao).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -93,49 +219,73 @@ public class PerfilProfessor extends AppCompatActivity {
         }
     }
 
-    public void setarAtributos(){
-        Bundle bundle = getIntent().getExtras();
-        if(bundle != null){
-            professor = (Professor) bundle.getSerializable("professorSelecionado");
-        }
-        nNome.setText(professor.getNome());
-
-
-        firebaseDatabase = Conexao.getFirebaseDatabase();
-        databaseReference = firebaseDatabase.getReference();
-        pesquisa = databaseReference.child("Professor").child(professor.getId());
-        pesquisa.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String endereco = snapshot.child("endereco").getValue().toString();
-                nEndereco.setText(endereco);
-                String instrumentos = snapshot.child("instrumentos").getValue().toString();
-                nInstrumentos.setText(instrumentos);
-                String biografia = snapshot.child("biografia").getValue().toString();
-                nBiografia.setText(biografia);
-                String valor = snapshot.child("valor").getValue().toString();
-                nValor.setText(valor);
-                String disponibilidade = snapshot.child("disponibilidade").getValue().toString();
-                nDisponibilidade.setText(disponibilidade);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-        if (professor.getCaminhoFoto() != null) {
-            Uri uri = Uri.parse(professor.getCaminhoFoto());
-            Glide.with(PerfilProfessor.this).load(uri).into(nFoto);
-        }else{
-            nFoto.setImageResource(R.drawable.perfil);
-        }
+    public void removerMatricula(String idMatricula){
+        databaseReference.child("Professor").child(professor.getId()).child("Matricula").child(idMatricula).removeValue();
+        databaseReference.child("Aluno").child(firebaseUser.getUid()).child("Matricula").child(idMatricula).removeValue();
+        notificacao = new Notificacao(randomUUID().toString(), professor.getId(), firebaseUser.getUid(), "aluno", "professor", "remocao_matricula");
+        databaseReference.child("Notificacao").child(notificacao.getIdNotificacao()).setValue(notificacao);
+        Toast.makeText(this, "Matricula removida!", Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(getApplicationContext(), BuscarProfessor.class));
     }
 
     @Override
     protected void onStart(){
         super.onStart();
         firebaseUser = AlunoFirebase.getAlunoAtual();
+    }
+
+    public void setarAtributos(){
+        Bundle bundle = getIntent().getExtras();
+        if(bundle != null){
+            professor = (Professor) bundle.getSerializable("professorSelecionado");
+        }
+        firebaseDatabase = Conexao.getFirebaseDatabase();
+        databaseReference = firebaseDatabase.getReference();
+        pesquisa = databaseReference.child("Professor").child(professor.getId());
+        pesquisa.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String nome = snapshot.child("nome").getValue().toString();
+                professor.setNome(nome);
+                nNome.setText(nome);
+
+                String email = snapshot.child("email").getValue().toString();
+                professor.setEmail(email);
+
+                String endereco = snapshot.child("endereco").getValue().toString();
+                professor.setEndereco(endereco);
+                nEndereco.setText(endereco);
+
+                String instrumentos = snapshot.child("instrumentos").getValue().toString();
+                professor.setInstrumentos(instrumentos);
+                nInstrumentos.setText(instrumentos);
+
+
+                String biografia = snapshot.child("biografia").getValue().toString();
+                professor.setBiografia(biografia);
+                nBiografia.setText(biografia);
+
+                String valor = snapshot.child("valor").getValue().toString();
+                professor.setValor(valor);
+                nValor.setText(valor);
+
+
+                String disponibilidade = snapshot.child("disponibilidade").getValue().toString();
+                professor.setDisponibilidade(disponibilidade);
+                nDisponibilidade.setText(disponibilidade);
+
+                String caminhoFoto = "";
+                caminhoFoto =  snapshot.child("caminhoFoto").getValue().toString();
+                professor.setCaminhoFoto(caminhoFoto);
+                if (professor.getCaminhoFoto() != null) {
+                    Uri uri = Uri.parse(professor.getCaminhoFoto());
+                    Glide.with(PerfilProfessor.this).load(uri).into(nFoto);
+                }else{
+                    nFoto.setImageResource(R.drawable.perfil);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {}
+        });
     }
 }

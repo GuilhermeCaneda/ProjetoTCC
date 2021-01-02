@@ -100,19 +100,6 @@ public class MeusProfessoresAdapter extends RecyclerView.Adapter<MeusProfessores
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
-
-        holder.nExcluir.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(context, "Excluir!", Toast.LENGTH_SHORT).show();
-
-                Toast.makeText(context, "Matrícula cancelada!", Toast.LENGTH_SHORT).show();
-                notificacao = new Notificacao(randomUUID().toString(), matricula.getIdProfessor(), matricula.getIdAluno(), "aluno", "professor", "remocao_matricula");
-                databaseReference.child("Notificacao").child(notificacao.getIdNotificacao()).setValue(notificacao);
-                databaseReference.child("Professor").child(matricula.getIdProfessor()).child("Matricula").child(matricula.getIdMatricula()).removeValue();
-                databaseReference.child("Aluno").child(matricula.getIdAluno()).child("Matricula").child(matricula.getIdMatricula()).removeValue();
-            }
-        });
     }
 
     @Override
@@ -124,7 +111,6 @@ public class MeusProfessoresAdapter extends RecyclerView.Adapter<MeusProfessores
 
         private ImageView nFoto;
         private TextView nNome, nEmail, nValorPagamento, nDataPagamento;
-        private Button nExcluir;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -134,7 +120,6 @@ public class MeusProfessoresAdapter extends RecyclerView.Adapter<MeusProfessores
             nEmail = itemView.findViewById(R.id.emailMeusProfessores);
             nValorPagamento = itemView.findViewById(R.id.valorPagamentoMeusProfessores);
             nDataPagamento = itemView.findViewById(R.id.dataPagamentoMeusProfessores);
-            nExcluir = itemView.findViewById(R.id.excluirMeusProfessores);
         }
     }
 }

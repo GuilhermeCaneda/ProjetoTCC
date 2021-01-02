@@ -126,7 +126,7 @@
             android:id="@+id/biografiaPerfilProfessor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="116dp"
+            android:layout_marginTop="8dp"
             android:padding="8dp"
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
@@ -189,14 +189,13 @@
             android:id="@+id/matricularPerfilProfessor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="128dp"
+            android:layout_marginTop="32dp"
             android:background="@drawable/bg_button"
             android:text="Solicitar Matrícula"
             android:textColor="#C8C7C7"
             android:textColorHint="#C8C7C7"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/biografiaPerfilProfessor" />
 
@@ -213,6 +212,21 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/enderecoPerfilProfessor" />
+
+        <Button
+            android:id="@+id/cancelarMatriculaPerfilProfessor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="50dp"
+            android:background="@drawable/bg_button_reserva"
+            android:text="Cancelar Matrícula"
+            android:textColor="#DAA53A3A"
+            android:textColorHint="#C8C7C7"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/matricularPerfilProfessor" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

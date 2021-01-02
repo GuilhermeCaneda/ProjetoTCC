@@ -43,7 +43,7 @@
                 android:orientation="vertical">
 
                 <EditText
-                    android:id="@+id/comentarioVisualizarAvaliacoesProfessor"
+                    android:id="@+id/textoVisualizarAvaliacoesProfessor"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
 
@@ -51,7 +51,6 @@
                     android:hint="Digite um comentário"
                     android:textColor="#C8C7C7"
                     android:textColorHint="#C8C7C7"
-
 
                     android:textSize="14sp" />
 
@@ -61,20 +60,22 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
                         <Button
                             android:id="@+id/enviarAvaliacaoVisualizarAvaliacoesProfessor"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="bottom"
                             android:layout_weight="1"
                             android:background="@drawable/bg_button"
-                            android:textColor="#C8C7C7"
-                            android:text="Enviar Avaliação" />
+                            android:text="Enviar Avaliação"
+                            android:textColor="#C8C7C7" />
                     </LinearLayout>
+
                 </RelativeLayout>
+
             </LinearLayout>
 
         </LinearLayout>

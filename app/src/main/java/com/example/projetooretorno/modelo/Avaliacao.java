@@ -1,6 +1,8 @@
 package com.example.projetooretorno.modelo;
 
-public class Avaliacao {
+import java.io.Serializable;
+
+public class Avaliacao implements Serializable {
 
     private String idAvaliacao;
     private String idProfessor;
