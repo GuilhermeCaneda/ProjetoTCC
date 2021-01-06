@@ -126,7 +126,7 @@
             android:id="@+id/biografiaPerfilProfessor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:padding="8dp"
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
@@ -136,7 +136,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/avaliacoesPerfilProfessor" />
+            app:layout_constraintTop_toBottomOf="@+id/contatosPerfilProfessor" />
 
         <TextView
             android:id="@+id/instrumentosPerfilProfessor"
@@ -212,6 +212,20 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/enderecoPerfilProfessor" />
+
+        <Button
+            android:id="@+id/contatosPerfilProfessor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_button"
+            android:text="Visualizar contatos"
+            android:textColor="#C8C7C7"
+            android:textColorHint="#C8C7C7"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/avaliacoesPerfilProfessor" />
 
         <Button
             android:id="@+id/cancelarMatriculaPerfilProfessor"

@@ -9,7 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".telastestes.VisualizarAvaliacoesProfessor"></activity>
+        <activity android:name=".controle.EditarContatosProfessor"></activity>
+        <activity android:name=".controle.VisualizarContatosProfessor"/>
+        <activity android:name=".controle.FiltroBuscarProfessor" />
+        <activity android:name=".controle.VisualizarAvaliacoesProfessor" />
         <activity android:name=".controle.EditarMeusAlunos" />
         <activity android:name=".controle.MeusAlunos" />
         <activity android:name=".controle.NotificacaoAluno" />
@@ -18,21 +21,13 @@
         <activity android:name=".controle.NotificacaoProfessor" />
         <activity android:name=".MenuProfessor" />
         <activity android:name=".controle.BuscarProfessor" />
-        <activity
-            android:name=".controle.PerfilProfessor"
-            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".controle.PerfilProfessor" android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".controle.EditarPerfilProfessor" />
         <activity android:name=".controle.EditarPerfilAluno" />
         <activity android:name=".MenuAluno" />
-        <activity
-            android:name=".controle.OpCadastros"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".controle.CadastroProfessor"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".controle.CadastroAluno"
-            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".controle.OpCadastros" android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".controle.CadastroProfessor" android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".controle.CadastroAluno" android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Login"
             android:theme="@style/AppTheme.NoActionBar">

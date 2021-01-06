@@ -1,4 +1,4 @@
-package com.example.projetooretorno.telastestes;
+package com.example.projetooretorno.controle;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -60,6 +60,7 @@ public class VisualizarAvaliacoesProfessor extends AppCompatActivity {
 
         cardView = findViewById(R.id.cardViewVisualizarAvaliacoesProfessor);
         verificarCardView();
+        verificarCardView2();
 
         recyclerView = findViewById(R.id.recyclerViewVisualizarAvaliacoesProfessor);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
@@ -140,19 +141,23 @@ public class VisualizarAvaliacoesProfessor extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
+    }
 
-        DatabaseReference verificarMatricula = databaseReference.child("Professor").child(professor.getId()).child("Matricula");
-        verificarMatricula.addValueEventListener(new ValueEventListener() {
+    public void verificarCardView2(){
+        firebaseDatabase = Conexao.getFirebaseDatabase();
+        DatabaseReference verificarMatricula = firebaseDatabase.getReference();
+        verificarMatricula.child("Professor").child(professor.getId()).child("Matricula").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String idAlunoooo = "";
                 for(DataSnapshot dataSnapshot: snapshot.getChildren()){
-                    String idAlunoooo = dataSnapshot.child("idAluno").getValue().toString();
-                    if(idAlunoooo.equals(user.getUid())){
-                        cardView.setVisibility(View.VISIBLE);
-                    }else{
-                        cardView.setVisibility(View.GONE);
-                    }
-                    break;
+                    idAlunoooo = dataSnapshot.child("idAluno").getValue().toString();
+                }
+
+                if(idAlunoooo.equals(user.getUid())){
+                    cardView.setVisibility(View.VISIBLE);
+                }else{
+                    cardView.setVisibility(View.GONE);
                 }
             }
             @Override

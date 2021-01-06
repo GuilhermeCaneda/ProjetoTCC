@@ -10,8 +10,8 @@ import android.widget.Button;
 import com.example.projetooretorno.controle.EditarPerfilAluno;
 import com.example.projetooretorno.controle.MeusProfessoresAluno;
 import com.example.projetooretorno.helper.Conexao;
-import com.example.projetooretorno.controle.BuscarProfessor;
 import com.example.projetooretorno.controle.NotificacaoAluno;
+import com.example.projetooretorno.controle.FiltroBuscarProfessor;
 
 public class MenuAluno extends AppCompatActivity {
 
@@ -26,7 +26,7 @@ public class MenuAluno extends AppCompatActivity {
         nProcurarProfessor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), BuscarProfessor.class));
+                startActivity(new Intent(getApplicationContext(), FiltroBuscarProfessor.class));
             }
         });
 

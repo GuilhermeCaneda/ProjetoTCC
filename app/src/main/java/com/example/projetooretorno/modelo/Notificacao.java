@@ -12,6 +12,9 @@ public class Notificacao {
     public Notificacao() {
     }
 
+    public Notificacao(String idNotificacao) {
+        this.idNotificacao = idNotificacao;
+    }
 
     public Notificacao(String idNotificacao, String idProfessor, String idAluno, String remetente, String destinatario, String assunto) {
         this.idNotificacao = idNotificacao;

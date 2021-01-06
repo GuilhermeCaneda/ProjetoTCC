@@ -16,6 +16,7 @@ import com.example.projetooretorno.helper.AlunoFirebase;
 import com.example.projetooretorno.helper.RecyclerItemClickListener;
 import com.example.projetooretorno.adapter.ProfessorAdapter;
 import com.example.projetooretorno.helper.Conexao;
+import com.example.projetooretorno.modelo.Filtro;
 import com.example.projetooretorno.modelo.Matricula;
 import com.example.projetooretorno.modelo.Professor;
 import com.google.firebase.auth.FirebaseUser;
@@ -23,10 +24,15 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;
+
+import java.text.Normalizer;
+import java.util.regex.Pattern;
 
 public class BuscarProfessor extends AppCompatActivity {
 
@@ -38,14 +44,14 @@ public class BuscarProfessor extends AppCompatActivity {
 
     FirebaseUser user;
 
-    Matricula matricula;
-    List<Matricula> matriculas;
+    Filtro filtro;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buscar_professor);
 
+        receberFiltro();
         recyclerView = findViewById(R.id.recyclerViewBuscarProfessor);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
@@ -82,6 +88,9 @@ public class BuscarProfessor extends AppCompatActivity {
         firebaseDatabase = Conexao.getFirebaseDatabase();
         databaseReference = firebaseDatabase.getReference();
         DatabaseReference pesquisarProfessores = databaseReference.child("Professor");
+
+        //Query pesquisarProfessores = databaseReference.child("Professor").orderByChild("instrumentos").startAt("%" + filtro.getInstrumento() + "%");
+
         pesquisarProfessores.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull final DataSnapshot snapshot) {
@@ -90,11 +99,19 @@ public class BuscarProfessor extends AppCompatActivity {
                      String nomeProfessor = dataSnapshot.child("nome").getValue().toString();
                      String emailProfessor = dataSnapshot.child("email").getValue().toString();
                      String enderecoProfessor = dataSnapshot.child("endereco").getValue().toString();
+                     //String instrumentosProfessor = dataSnapshot.child("instrumentos").getValue().toString();
                      String caminhoFotoProfessor = "";
                      if(dataSnapshot.child("caminhoFoto").getValue()!=null) {
                          caminhoFotoProfessor = dataSnapshot.child("caminhoFoto").getValue().toString();
                      }
-                     professores.add(new Professor(idProfessor, nomeProfessor, emailProfessor, caminhoFotoProfessor, enderecoProfessor));
+
+                     /*
+                     instrumentosProfessor = deAccent(instrumentosProfessor).toUpperCase();
+                     if(instrumentosProfessor.equals(filtro.getInstrumento())){
+                        professores.add(new Professor(idProfessor, nomeProfessor, emailProfessor, caminhoFotoProfessor, enderecoProfessor));
+                     }*/
+
+                    professores.add(new Professor(idProfessor, nomeProfessor, emailProfessor, caminhoFotoProfessor, enderecoProfessor));
                 }
                 ProfessorAdapter adapter = new ProfessorAdapter(professores, getApplicationContext());
                 recyclerView.setAdapter(adapter);
@@ -103,5 +120,18 @@ public class BuscarProfessor extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
+    }
+
+    public void receberFiltro(){
+        Bundle bundle = getIntent().getExtras();
+        if(bundle != null){
+            filtro = (Filtro) bundle.getSerializable("filtro");
+        }
+    }
+
+    public static String deAccent(String str) {
+        String nfdNormalizedString = Normalizer.normalize(str, Normalizer.Form.NFD);
+        Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
+        return pattern.matcher(nfdNormalizedString).replaceAll("");
     }
 }

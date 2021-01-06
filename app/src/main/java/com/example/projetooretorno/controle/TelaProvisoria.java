@@ -50,7 +50,7 @@ public class TelaProvisoria extends AppCompatActivity {
     EditText nNome, nInstrumentos, nEndereco, nBiografia, nEmail, nValor;
     Switch nDisponibilidade;
     ProgressBar nProgressBar;
-    Button nSalvar;
+    Button nSalvar, nEditarContatos;
 
     FirebaseUser user;
     FirebaseDatabase firebaseDatabase;
@@ -72,6 +72,14 @@ public class TelaProvisoria extends AppCompatActivity {
         user = AlunoFirebase.getAlunoAtual();
         professor = ProfessorFirebase.getDadosProfessorLogado();
         setarValores();
+
+        nEditarContatos = findViewById(R.id.buttonEditarContatosTelaProvisoria);
+        nEditarContatos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), EditarContatosProfessor.class));
+            }
+        });
 
         nFoto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -182,7 +190,7 @@ public class TelaProvisoria extends AppCompatActivity {
         nEmail.setFocusable(false);
         nProgressBar = findViewById(R.id.progressBarTelaProvisoria);
         nProgressBar.setVisibility(View.GONE);
-        nSalvar = findViewById(R.id.buttonEditarTelaProvisoria);
+        nSalvar = findViewById(R.id.buttonConfirmarTelaProvisoria);
     }
 
     private void setarValores(){
@@ -203,9 +211,9 @@ public class TelaProvisoria extends AppCompatActivity {
                 nEndereco.setText(endereco);
                 nBiografia.setText(biografia);
                 nDisponibilidade.setText(disponibilidade);
-                if(disponibilidade=="Disponível"){
+                if(disponibilidade.equals("Disponível")){
                     nDisponibilidade.setChecked(true);
-                }else{
+                }else if(disponibilidade.equals("Indisponível")){
                     nDisponibilidade.setChecked(false);
                 }
                 nValor.setText(valor);
