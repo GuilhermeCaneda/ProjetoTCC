@@ -91,6 +91,16 @@ public class PerfilProfessor extends AppCompatActivity {
         nCancelarMatricula.setVisibility(View.GONE);
         nMatricular = findViewById(R.id.matricularPerfilProfessor);
 
+        nMatricular.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                idNotificacaoo = randomUUID().toString();
+                idProfessorr = professor.getId();
+                idAlunoo = firebaseUser.getUid();
+                criarNotificacao(idNotificacaoo, idProfessorr, idAlunoo);
+            }
+        });
+
         //ERRO AQUI
         verificarNotificacoes();
         //verificarMatriculas();

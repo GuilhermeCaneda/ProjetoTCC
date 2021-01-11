@@ -55,9 +55,12 @@ public class VisualizarAvaliacoesProfessor extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_visualizar_avaliacoes_professor);
 
+        firebaseDatabase = Conexao.getFirebaseDatabase();
         user = AlunoFirebase.getAlunoAtual();
         receberProfessor();
 
+        nFoto = findViewById(R.id.fotoVisualizarAvaliacoesProfessor);
+        nTexto = findViewById(R.id.textoVisualizarAvaliacoesProfessor);
         cardView = findViewById(R.id.cardViewVisualizarAvaliacoesProfessor);
         verificarCardView();
         verificarCardView2();
@@ -65,9 +68,6 @@ public class VisualizarAvaliacoesProfessor extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerViewVisualizarAvaliacoesProfessor);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-
-        nFoto = findViewById(R.id.fotoVisualizarAvaliacoesProfessor);
-        nTexto = findViewById(R.id.textoVisualizarAvaliacoesProfessor);
 
         nEnviarAvaliacao = findViewById(R.id.enviarAvaliacaoVisualizarAvaliacoesProfessor);
         nEnviarAvaliacao.setOnClickListener(new View.OnClickListener() {
@@ -79,7 +79,6 @@ public class VisualizarAvaliacoesProfessor extends AppCompatActivity {
                 String textoo = nTexto.getText().toString();
                 Avaliacao a = new Avaliacao(idAvaliacaoo, idProfesorr, idAlunoo, textoo);
 
-                firebaseDatabase = Conexao.getFirebaseDatabase();
                 databaseReference = firebaseDatabase.getReference();
                 databaseReference.child("Professor").child(idProfesorr).child("Avaliacao").child(idAvaliacaoo).setValue(a);
                 cardView.setVisibility(View.GONE);
@@ -89,9 +88,48 @@ public class VisualizarAvaliacoesProfessor extends AppCompatActivity {
         listarAvaliacoes();
     }
 
+    public void verificarCardView(){
+        DatabaseReference verificarAvaliacoes = firebaseDatabase.getReference();
+        verificarAvaliacoes.child("Professor").child(professor.getId()).child("Avaliacao").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot dataSnapshot: snapshot.getChildren()){
+                    String idAlunooo = dataSnapshot.child("idAluno").getValue().toString();
+                    if(idAlunooo.equals(user.getUid())){
+                        cardView.setVisibility(View.GONE);
+                        break;
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+    }
+
+    public void verificarCardView2(){
+        DatabaseReference verificarMatricula = firebaseDatabase.getReference();
+        verificarMatricula.child("Professor").child(professor.getId()).child("Matricula").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String idAlunoooo = "";
+                for(DataSnapshot dataSnapshot: snapshot.getChildren()){
+                    idAlunoooo = dataSnapshot.child("idAluno").getValue().toString();
+                }
+
+                if(idAlunoooo.equals(user.getUid())){
+                    cardView.setVisibility(View.VISIBLE);
+                }else{
+                    cardView.setVisibility(View.GONE);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+    }
 
     public void listarAvaliacoes(){
-        firebaseDatabase = Conexao.getFirebaseDatabase();
         databaseReference = firebaseDatabase.getReference();
         DatabaseReference pesquisarAvaliacoes = databaseReference.child("Professor").child(professor.getId()).child("Avaliacao");
         pesquisarAvaliacoes.addValueEventListener(new ValueEventListener() {
@@ -113,57 +151,11 @@ public class VisualizarAvaliacoesProfessor extends AppCompatActivity {
         });
     }
 
-
     public void receberProfessor(){
         Bundle bundle = getIntent().getExtras();
-            if(bundle != null){
-                professor = (Professor) bundle.getSerializable("professorAvaliacoes");
-            }
-    }
-
-
-    public void verificarCardView(){
-        firebaseDatabase = Conexao.getFirebaseDatabase();
-        databaseReference = firebaseDatabase.getReference();
-        DatabaseReference verificarAvaliacoes = databaseReference.child("Professor").child(professor.getId()).child("Avaliacao");
-        verificarAvaliacoes.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot dataSnapshot: snapshot.getChildren()){
-                    String idAlunooo = dataSnapshot.child("idAluno").getValue().toString();
-                    if(idAlunooo.equals(user.getUid())){
-                        cardView.setVisibility(View.GONE);
-                        break;
-                    }
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-            }
-        });
-    }
-
-    public void verificarCardView2(){
-        firebaseDatabase = Conexao.getFirebaseDatabase();
-        DatabaseReference verificarMatricula = firebaseDatabase.getReference();
-        verificarMatricula.child("Professor").child(professor.getId()).child("Matricula").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String idAlunoooo = "";
-                for(DataSnapshot dataSnapshot: snapshot.getChildren()){
-                    idAlunoooo = dataSnapshot.child("idAluno").getValue().toString();
-                }
-
-                if(idAlunoooo.equals(user.getUid())){
-                    cardView.setVisibility(View.VISIBLE);
-                }else{
-                    cardView.setVisibility(View.GONE);
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-            }
-        });
+        if(bundle != null){
+            professor = (Professor) bundle.getSerializable("professorAvaliacoes");
+        }
     }
 
 }
