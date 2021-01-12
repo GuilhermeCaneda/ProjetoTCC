@@ -95,6 +95,8 @@ public class EditarMeusAlunos extends AppCompatActivity {
                 nEmail.setText(email);
                 if (caminhoFoto!="") {
                     Uri uri = Uri.parse(caminhoFoto);
+
+                    //ERRO AQUI
                     Glide.with(EditarMeusAlunos.this).load(uri).into(nFoto);
                 }else{
                     nFoto.setImageResource(R.drawable.perfil);

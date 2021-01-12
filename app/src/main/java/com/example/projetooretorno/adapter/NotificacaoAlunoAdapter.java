@@ -103,6 +103,8 @@ public class NotificacaoAlunoAdapter extends RecyclerView.Adapter<NotificacaoAlu
                     Toast.makeText(context, "Notificação removida!", Toast.LENGTH_SHORT).show();
                 }
             });
+
+
         }
     }
 

@@ -89,11 +89,12 @@ public class BuscarProfessor extends AppCompatActivity {
         databaseReference = firebaseDatabase.getReference();
         DatabaseReference pesquisarProfessores = databaseReference.child("Professor");
 
-        //Query pesquisarProfessores = databaseReference.child("Professor").orderByChild("instrumentos").startAt("%" + filtro.getInstrumento() + "%");
+        //Query pesquisarProfessores = databaseReference.child("Professor").orderByChild("instrumentos").equalTo(%filtro.getInstrumento()%);
 
         pesquisarProfessores.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull final DataSnapshot snapshot) {
+                professores.clear();
                 for(DataSnapshot dataSnapshot: snapshot.getChildren()){
                      String idProfessor = dataSnapshot.child("id").getValue().toString();
                      String nomeProfessor = dataSnapshot.child("nome").getValue().toString();
@@ -105,7 +106,7 @@ public class BuscarProfessor extends AppCompatActivity {
                          caminhoFotoProfessor = dataSnapshot.child("caminhoFoto").getValue().toString();
                      }
 
-                     /*
+                    /*
                      instrumentosProfessor = deAccent(instrumentosProfessor).toUpperCase();
                      if(instrumentosProfessor.equals(filtro.getInstrumento())){
                         professores.add(new Professor(idProfessor, nomeProfessor, emailProfessor, caminhoFotoProfessor, enderecoProfessor));

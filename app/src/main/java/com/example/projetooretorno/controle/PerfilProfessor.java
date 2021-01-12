@@ -128,7 +128,6 @@ public class PerfilProfessor extends AppCompatActivity {
                                 removerMatricula(idMatricula);
                             }
                         });
-
                     }
                 }
             }
@@ -136,7 +135,6 @@ public class PerfilProfessor extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {}
         });
-
     }
 
     public void verificarNotificacoes(){
@@ -273,6 +271,8 @@ public class PerfilProfessor extends AppCompatActivity {
                 professor.setCaminhoFoto(caminhoFoto);
                 if (professor.getCaminhoFoto() != null) {
                     Uri uri = Uri.parse(professor.getCaminhoFoto());
+
+                    //ERRO
                     Glide.with(PerfilProfessor.this).load(uri).into(nFoto);
                 }else{
                     nFoto.setImageResource(R.drawable.perfil);

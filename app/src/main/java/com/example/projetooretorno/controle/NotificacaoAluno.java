@@ -36,6 +36,7 @@ public class NotificacaoAluno extends AppCompatActivity {
     private DatabaseReference databaseReference;
 
     FirebaseUser user;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
